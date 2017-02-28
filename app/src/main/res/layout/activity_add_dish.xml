@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dish_display"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="grant.gawk.reviewapp.AddDishActivity">
+
+    <TextView
+        android:text="Dish:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="53dp"
+        android:id="@+id/dishNameLabel"
+        android:inputType="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Rating:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:layout_below="@+id/dishNameLabel"
+        android:layout_alignLeft="@+id/dishNameLabel"
+        android:layout_alignStart="@+id/dishNameLabel"
+        android:layout_marginTop="41dp"
+        android:id="@+id/ratingLabel" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dishRatingBar"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/dishNameEntry"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter a dish name"
+        android:ems="10"
+        android:textSize="28px"
+        android:id="@+id/dishNameEntry"
+        android:layout_alignBaseline="@+id/dishNameLabel"
+        android:layout_alignBottom="@+id/dishNameLabel"
+        android:layout_alignLeft="@+id/dishRatingBar"
+        android:layout_alignStart="@+id/dishRatingBar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Service:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:id="@+id/serviceLabel"
+        android:layout_below="@+id/dishRatingBar"
+        android:layout_alignLeft="@+id/ratingLabel"
+        android:layout_alignStart="@+id/ratingLabel"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text="Comments:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:id="@+id/commentsLabel"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/serviceLabel"
+        android:layout_alignStart="@+id/serviceLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="10"
+        android:textSize="28px"
+        android:hint="Enter your comments about the dish."
+        android:id="@+id/commentTextBox"
+        android:layout_below="@+id/serviceLabel"
+        android:layout_alignLeft="@+id/dishRatingBar"
+        android:layout_alignStart="@+id/dishRatingBar"
+        android:layout_marginTop="41dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serviceRatingBar"
+        android:layout_below="@+id/dishRatingBar"
+        android:layout_alignStart="@+id/dishRatingBar"
+        android:layout_alignLeft="@+id/dishRatingBar"/>
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commentTextBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/submitButton"
+        android:onClick="collectData"/>
+
+    <TextView
+        android:text="Date:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/dishNameLabel"
+        android:layout_alignStart="@+id/dishNameLabel"
+        android:layout_marginTop="11dp"
+        android:inputType="none"
+        android:id="@+id/dateLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter Date"
+        android:textSize="28px"
+        android:ems="10"
+        android:id="@+id/dateEntry"
+        android:layout_alignBaseline="@+id/dateLabel"
+        android:layout_alignBottom="@+id/dateLabel"
+        android:layout_alignLeft="@+id/dishNameEntry"
+        android:layout_alignStart="@+id/dishNameEntry"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
