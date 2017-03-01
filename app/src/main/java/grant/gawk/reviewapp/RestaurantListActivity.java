@@ -10,13 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class RestaurantListActivity extends AppCompatActivity {
-
+    ListView restaurantList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_list);
+        restaurantList = (ListView) findViewById(R.id.restaurant_list);
 
         populateList();
 
@@ -27,7 +28,6 @@ public class RestaurantListActivity extends AppCompatActivity {
                 //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
                 android.R.layout.simple_list_item_1, RestaurantData.getData());
 
-        ListView restaurantList = (ListView) findViewById(R.id.restaurant_list);
         restaurantList.setAdapter(adapter);
 
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){

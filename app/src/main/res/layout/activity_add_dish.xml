@@ -58,51 +58,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Service:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:id="@+id/serviceLabel"
-        android:layout_below="@+id/dishRatingBar"
-        android:layout_alignLeft="@+id/ratingLabel"
-        android:layout_alignStart="@+id/ratingLabel"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:text="Comments:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:id="@+id/commentsLabel"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/serviceLabel"
-        android:layout_alignStart="@+id/serviceLabel" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:lines="10"
-        android:textSize="28px"
-        android:hint="Enter your comments about the dish."
-        android:id="@+id/commentTextBox"
-        android:layout_below="@+id/serviceLabel"
-        android:layout_alignLeft="@+id/dishRatingBar"
-        android:layout_alignStart="@+id/dishRatingBar"
-        android:layout_marginTop="41dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/serviceRatingBar"
-        android:layout_below="@+id/dishRatingBar"
-        android:layout_alignStart="@+id/dishRatingBar"
-        android:layout_alignLeft="@+id/dishRatingBar"/>
-
     <Button
         android:text="Submit"
         android:layout_width="wrap_content"
@@ -138,5 +93,31 @@
         android:layout_alignStart="@+id/dishNameEntry"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Comments:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:id="@+id/commentsLabel"
+        android:layout_below="@+id/dishRatingBar"
+        android:layout_alignLeft="@+id/ratingLabel"
+        android:layout_alignStart="@+id/ratingLabel"
+        android:layout_marginTop="18dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="10"
+        android:textSize="28px"
+        android:hint="Enter your comments about the dish."
+        android:id="@+id/commentTextBox"
+        android:layout_alignTop="@+id/commentsLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/dishRatingBar"
+        android:layout_alignStart="@+id/dishRatingBar" />
 
 </RelativeLayout>

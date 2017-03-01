@@ -10,21 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class DishListActivity extends AppCompatActivity {
+    ListView dishList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
+        dishList = (ListView) findViewById(R.id.dish_list);
+
+        //This is the fix to the issue of the list not populating, and what I interpreted as transitioning not working
+        populateList();
     }
 
     private void populateList(){
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, DishData.getData());
 
-        ListView restaurantList = (ListView) findViewById(R.id.dish_list);
-        restaurantList.setAdapter(adapter);
+        dishList.setAdapter(adapter);
 
-        restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        dishList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Log.d("onClick" , parent.toString());
                 Log.d("onClick" , v.toString());

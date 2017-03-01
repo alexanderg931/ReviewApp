@@ -14,7 +14,7 @@ public class DishData {
 
         for(int i = 0; i<20; i++){
 
-            myDishes.add("Restaurant #" + Integer.toString(rand.nextInt(999)));
+            myDishes.add("Dish #" + Integer.toString(rand.nextInt(999)));
         }
 
         return myDishes;
