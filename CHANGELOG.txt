@@ -1,0 +1,11 @@
+3/1/2017 - Fixed populateList() not being called in onCreate() in DishListActivity(). Program now properly transitions between RestaurantListActivity -> DishListActivity -> ShowDishActivity()
+
+3/1/2017 - added a dummyData method to ShowDishActivity for display purposes
+
+3/1/2017 - properly made all widgets attributes of their Activity classes rather than local variables. A stylistic change so our UML diagrams are more descriptive.
+
+3/1/2017 - references in DishListActivity to restaurantList (because this Activity is a clone of RestaurantListActivity) have been properly renamed to dishList
+
+3/1/2017 - removed references to serviceRating in ShowDishActivity, activity_add_dish.xml, and activity_show_dish.xml
+
+3/1/2017 - reverted add_restaurant.xml. Deleted a list element I thought was erroneous, but was infact functional.
