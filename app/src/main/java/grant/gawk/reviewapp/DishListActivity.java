@@ -3,6 +3,7 @@ package grant.gawk.reviewapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,11 +12,21 @@ import android.widget.ListView;
 
 public class DishListActivity extends AppCompatActivity {
     ListView dishList;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
+
+        //Sets Restaurant's name to toolbar title
+        toolbar = (Toolbar) findViewById(R.id.dish_list_toolbar);
+        Intent intent = getIntent();
+        Log.d("dishCLick", intent.getStringExtra("restaurantName"));
+        toolbar.setTitle(intent.getStringExtra("restaurantName"));
+
+
+
         dishList = (ListView) findViewById(R.id.dish_list);
 
         //This is the fix to the issue of the list not populating, and what I interpreted as transitioning not working
@@ -38,6 +49,7 @@ public class DishListActivity extends AppCompatActivity {
                 showDishForm(v);
             }
         });
+
 
 
     }

@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 public class RestaurantListActivity extends AppCompatActivity {
     ListView restaurantList;
-
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +24,24 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     private void populateList(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        adapter = new ArrayAdapter<>(this,
                 //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
                 android.R.layout.simple_list_item_1, RestaurantData.getData());
 
-        restaurantList.setAdapter(adapter);
 
+        restaurantList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Log.d("onClick" , parent.toString());
                 Log.d("onClick" , v.toString());
                 Log.d("onClick" , Integer.toString(position));
                 Log.d("onClick" , Long.toString(id));
+                Log.d("onClick" , RestaurantData.getData().get(position));
 
-                showRestaurantForm(v);
+                String restaurantName = RestaurantData.getData().get(position); //get name of selected restaurant
+                adapter.notifyDataSetChanged();
+                showRestaurantForm(v, restaurantName);
 
             }
         });
@@ -46,8 +50,9 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     //called to move to Restaurant Data form.
-    private void showRestaurantForm(View View){
+    private void showRestaurantForm(View View,  String restaurantName){
         Intent intent = new Intent(this, DishListActivity.class);
+        intent.putExtra("restaurantName", restaurantName);
         startActivity(intent);
 
     }
