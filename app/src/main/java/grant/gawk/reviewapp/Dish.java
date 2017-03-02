@@ -9,6 +9,7 @@ public class Dish {
     private String comments;
     private String date;
     private float rating;
+    private int favorite;
 
     public Dish(String n, String d, String c, float r) {
         name = n;
@@ -36,4 +37,14 @@ public class Dish {
     {
         return comments;
     }
+
+    public int isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
+    }
+
+
 }
