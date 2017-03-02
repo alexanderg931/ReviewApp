@@ -30,7 +30,7 @@ public class RestaurantListActivity extends AppCompatActivity {
 
 
         restaurantList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Log.d("onClick" , parent.toString());
