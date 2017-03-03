@@ -59,4 +59,9 @@ public class DishListActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void addDish(View view) {
+        Intent intent = new Intent(this, AddDishActivity.class);
+        startActivity(intent);
+    }
 }
