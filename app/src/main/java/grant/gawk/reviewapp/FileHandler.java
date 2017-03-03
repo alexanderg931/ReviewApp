@@ -37,7 +37,7 @@ public class FileHandler {
     public void writeDish(String res, Dish dish) {
         dTxt = new File(appContext.getExternalFilesDir(null), res+".txt");
 
-        if(dTxt.exists() == false)
+        if(!dTxt.exists())
         {
             try {
                 dTxt.createNewFile();
@@ -108,6 +108,16 @@ public class FileHandler {
         /* Dishes loaded on demand for memory concerns, as opposed to restaurants which are front-loaded */
         try {
             dTxt = new File(appContext.getExternalFilesDir(null), res+".txt");
+
+            if (!dTxt.exists()) {
+                try {
+                    dTxt.createNewFile();
+                }
+                catch (IOException e) {
+                    System.err.println(e.toString());
+                }
+            }
+
             reader = new Scanner(dTxt);
             String inputBuffer;
             String[] inputBroken;

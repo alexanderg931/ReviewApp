@@ -28,19 +28,16 @@ public class ShowDishActivity extends AppCompatActivity {
         commentsWidget = (EditText) findViewById(R.id.commentTextBoxDisplay);
         ratingWidget = (RatingBar) findViewById(R.id.dishRatingBarDisplay);
 
-        /* Code to extract from file goes here
-        String dateToUse =
-        String nameToUse =
-        String commentsToUse =
-        float ratingToUse =
 
-        dateWidget.setText();
-        nameWidget.setText();
-        commentsWidget.setText();
-        ratingWidget.setRating();
-        */
+        String dateToUse = intent.getStringExtra("dishDate");
+        String nameToUse = intent.getStringExtra("dishName");
+        String commentsToUse = intent.getStringExtra("dishComments");
+        String ratingToUse = intent.getStringExtra("dishRating");
 
-        dummyData();
+        dateWidget.setText(dateToUse);
+        nameWidget.setText(nameToUse);
+        commentsWidget.setText(commentsToUse);
+        ratingWidget.setRating(Float.parseFloat(ratingToUse));
     }
 
     private void dummyData() {

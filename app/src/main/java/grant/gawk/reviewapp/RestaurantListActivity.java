@@ -12,11 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Context;
+import java.util.ArrayList;
 
 public class RestaurantListActivity extends AppCompatActivity {
     ListView restaurantList;
     ArrayAdapter adapter;
-    Context viewContext;
+    Context appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,8 @@ public class RestaurantListActivity extends AppCompatActivity {
 
         //get reference to restaurant list and populate it.
         restaurantList = (ListView) findViewById(R.id.restaurant_list);
-        viewContext = this.getApplicationContext();
+        appContext = this.getApplicationContext();
         populateList();
-
-
-
 
     }
 
@@ -53,7 +51,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     private void populateList(){
         adapter = new ArrayAdapter<>(this,
                 //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
-                android.R.layout.simple_list_item_1, RestaurantData.getData(viewContext));
+                android.R.layout.simple_list_item_1, getData());
 
         setTitle("My Restaurants");
         restaurantList.setAdapter(adapter);
@@ -64,10 +62,11 @@ public class RestaurantListActivity extends AppCompatActivity {
                 Log.d("onClick" , v.toString());
                 Log.d("onClick" , Integer.toString(position));
                 Log.d("onClick" , Long.toString(id));
-                Log.d("onClick" , RestaurantData.getData(viewContext).get((int)id));
+                Log.d("onClick" , getData().get((int)id));
 
-                String restaurantName = RestaurantData.getData(viewContext).get((int)id); //get name of selected restaurant
+                String restaurantName = getData().get((int)id); //get name of selected restaurant
                 adapter.notifyDataSetChanged();
+                System.out.println("This is where it crashes");
                 showRestaurantForm(v, restaurantName);
 
             }
@@ -86,6 +85,20 @@ public class RestaurantListActivity extends AppCompatActivity {
     public void addRestaurant(View view){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
         startActivity(intent);
+
+    }
+
+    public ArrayList<String> getData() {
+        FileHandler files = new FileHandler(appContext);
+        ArrayList<String> restaurantNames = new ArrayList<>();
+        ArrayList<Restaurant> restaurants = files.getRestaurants();
+
+        if (restaurants != null) {
+            for (int x = 0; x < restaurants.size(); x++) {
+                restaurantNames.add(restaurants.get(x).getName());
+            }
+        }
+        return restaurantNames;
     }
 
 }

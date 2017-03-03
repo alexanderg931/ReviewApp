@@ -15,11 +15,12 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
-
+import android.content.Context;
 
 public class AddRestaurantActivity extends AppCompatActivity implements OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 1;
     private ListView lvRestaurant;
+    Context appContext;
     ImageView getImage;
     Button btnSubmit;
     EditText restName, cityName;
@@ -30,7 +31,11 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant);
         setTitle("Add a Restaurant");
+        appContext = this.getApplicationContext();
         lvRestaurant = (ListView)findViewById(R.id.listRestaurant);
+        cityName = (EditText) findViewById(R.id.cityName);
+        restName = (EditText) findViewById(R.id.restName);
+
 
         List<Restaurant> listRest = new ArrayList<Restaurant>();
     }
@@ -45,6 +50,14 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.btnSubmit:
+                String city = cityName.getText().toString();
+                String restaurantName = restName.getText().toString();
+                FileHandler files = new FileHandler(appContext);
+                Restaurant restaurant = new Restaurant(null, restaurantName, city);
+                files.writeRestaurant(restaurant);
+
+                Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
+                startActivity(returnToRestaurantList);
                 break;
         }
 
