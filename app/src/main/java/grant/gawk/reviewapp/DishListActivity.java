@@ -44,7 +44,8 @@ public class DishListActivity extends AppCompatActivity {
                 Log.d("onClick" , Integer.toString(position));
                 Log.d("onClick" , Long.toString(id));
 
-                showDishForm(v);
+                String dishName = DishData.getData().get((int)id);
+                showDishForm(v, dishName);
             }
         });
 
@@ -53,9 +54,10 @@ public class DishListActivity extends AppCompatActivity {
     }
 
     //called to move to Restaurant Data form.
-    private void showDishForm(View View){
+    private void showDishForm(View View, String dishName){
 
         Intent intent = new Intent(this, ShowDishActivity.class);
+        intent.putExtra("dishName", dishName);
         startActivity(intent);
 
     }

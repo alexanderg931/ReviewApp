@@ -1,8 +1,6 @@
 package grant.gawk.reviewapp;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +31,6 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     public void openSettings(MenuItem item) {
-
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
     }
@@ -81,7 +78,6 @@ public class RestaurantListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         startActivity(intent);
-
     }
 
     public void addRestaurant(View view){

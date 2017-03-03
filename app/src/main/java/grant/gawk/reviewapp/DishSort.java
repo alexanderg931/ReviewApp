@@ -1,5 +1,9 @@
 package grant.gawk.reviewapp;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,20 +15,24 @@ public class DishSort {
         //Prevents creation of sort objects
     }
 
-    public static ArrayList sort(ArrayList myList, String option){
+    public static ArrayList sort(ArrayList myList, Context context){
+
+        String option = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_sortOption", "");
+        Log.d("sortMethods", option);
 
         //determine type of sorting to be done
         switch (option) {
             //Sort A-Z
-            case "a-z":
+            case "A-Z":
                 myList = azSort(myList);
                 break;
             //Sort by Favorite
-            case "favorite":
+            case "Favorites":
                 myList = favoriteSort(myList);
                 break;
             //Sort by Recentness
-            case "recent":
+            case "Recentness":
                 myList = recentnessSort(myList);
                 break;
             //Sort by Frequency
