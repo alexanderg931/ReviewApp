@@ -2,4 +2,8 @@
     <string name="app_name">ReviewApp</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string name="pref_sortOption">Sort</string>
+    <string name="pref_syncConnectionType">Order by...</string>
+    <string name="pref_syncConnectionTypes_default"><item>A-Z</item></string>
+
 </resources>
