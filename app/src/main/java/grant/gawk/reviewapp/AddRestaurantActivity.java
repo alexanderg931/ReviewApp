@@ -29,7 +29,7 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant);
-
+        setTitle("Add a Restaurant");
         lvRestaurant = (ListView)findViewById(R.id.listRestaurant);
 
         List<Restaurant> listRest = new ArrayList<Restaurant>();

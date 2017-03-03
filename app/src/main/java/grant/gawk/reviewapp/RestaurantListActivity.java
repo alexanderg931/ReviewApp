@@ -85,7 +85,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     public void addRestaurant(View view){
-        Intent intent = new Intent(this, AddDishActivity.class);
+        Intent intent = new Intent(this, AddRestaurantActivity.class);
         startActivity(intent);
     }
 

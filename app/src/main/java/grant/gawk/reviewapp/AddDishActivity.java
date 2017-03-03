@@ -18,6 +18,7 @@ public class AddDishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dish);
+        setTitle("Add a Dish");
         dishNameWidget = (EditText) findViewById(R.id.dishNameEntry);
         commentsWidget = (EditText) findViewById(R.id.commentTextBox);
         dateWidget = (EditText) findViewById(R.id.dateEntry);
