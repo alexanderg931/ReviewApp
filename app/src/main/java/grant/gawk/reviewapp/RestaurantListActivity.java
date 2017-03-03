@@ -23,7 +23,6 @@ public class RestaurantListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_list);
-
         //get reference to restaurant list and populate it.
         restaurantList = (ListView) findViewById(R.id.restaurant_list);
         appContext = this.getApplicationContext();
@@ -66,7 +65,6 @@ public class RestaurantListActivity extends AppCompatActivity {
 
                 String restaurantName = getData().get((int)id); //get name of selected restaurant
                 adapter.notifyDataSetChanged();
-                System.out.println("This is where it crashes");
                 showRestaurantForm(v, restaurantName);
 
             }
