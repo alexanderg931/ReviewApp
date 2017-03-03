@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,12 +25,22 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, menu);
+
+        return true;
+    }
+
+
+
     private void populateList(){
         adapter = new ArrayAdapter<>(this,
                 //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
                 android.R.layout.simple_list_item_1, RestaurantData.getData());
 
-
+        setTitle("My Restaurants");
         restaurantList.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -37,9 +49,9 @@ public class RestaurantListActivity extends AppCompatActivity {
                 Log.d("onClick" , v.toString());
                 Log.d("onClick" , Integer.toString(position));
                 Log.d("onClick" , Long.toString(id));
-                Log.d("onClick" , RestaurantData.getData().get(position));
+                Log.d("onClick" , RestaurantData.getData().get((int)id));
 
-                String restaurantName = RestaurantData.getData().get(position); //get name of selected restaurant
+                String restaurantName = RestaurantData.getData().get((int)id); //get name of selected restaurant
                 adapter.notifyDataSetChanged();
                 showRestaurantForm(v, restaurantName);
 

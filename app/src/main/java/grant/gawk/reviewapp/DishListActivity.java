@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 public class DishListActivity extends AppCompatActivity {
     ListView dishList;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +19,9 @@ public class DishListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dish_list);
 
         //Sets Restaurant's name to toolbar title
-        toolbar = (Toolbar) findViewById(R.id.dish_list_toolbar);
         Intent intent = getIntent();
         Log.d("dishCLick", intent.getStringExtra("restaurantName"));
-        toolbar.setTitle(intent.getStringExtra("restaurantName"));
+        setTitle(intent.getStringExtra("restaurantName"));
 
 
 
