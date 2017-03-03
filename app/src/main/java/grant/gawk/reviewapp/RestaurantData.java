@@ -2,12 +2,12 @@ package grant.gawk.reviewapp;
 
 import java.util.ArrayList;
 import java.util.Random;
-//import android.content.Context;
+import android.content.Context;
 
 
 public class RestaurantData {
 
-    /* //To-do
+    //To-do
     private static ArrayList<String> myRestaurants = new ArrayList<>();
 
     public static ArrayList<String> getData(Context context){
@@ -28,9 +28,9 @@ public class RestaurantData {
 
         return myRestaurants;
     }
-    */
 
-    private static ArrayList<String> myRestaurants = new ArrayList<String>();
+
+    /*private static ArrayList<String> myRestaurants = new ArrayList<String>();
 
     //Generates dummy data for list view and returns the array
     public static ArrayList<String> getData(){
@@ -42,5 +42,5 @@ public class RestaurantData {
         }
 
         return myRestaurants;
-    }
+    } */
 }
