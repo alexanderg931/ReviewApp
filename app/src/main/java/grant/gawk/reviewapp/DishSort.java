@@ -4,9 +4,12 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 
 public class DishSort {
@@ -75,8 +78,24 @@ public class DishSort {
             @Override
             public int compare(Dish dish1, Dish dish2)
             {
+                //convert Date String to date object before comparing.
+                Date d1 = new Date();
+                Date d2 = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
 
-                return  dish1.getDate().compareTo(dish2.getDate());
+                try {
+                    d1 = sdf.parse(dish1.getDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    d2 = sdf.parse(dish2.getDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                return  d1.compareTo(d2);
             }
         });
 

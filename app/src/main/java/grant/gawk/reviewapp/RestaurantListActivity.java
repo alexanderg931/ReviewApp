@@ -30,6 +30,8 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     }
 
+
+    //onClick function for settings menu
     public void openSettings(MenuItem item) {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
@@ -37,6 +39,7 @@ public class RestaurantListActivity extends AppCompatActivity {
 
 
 
+    //Overrides functionality to create overflow menu on toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();

@@ -80,6 +80,7 @@ public class DishListActivity extends AppCompatActivity {
         FileHandler files = new FileHandler(appContext);
         files.loadDishes(restaurantName);
         dishes = files.getDishes();
+        dishes = DishSort.sort(dishes, appContext);
         ArrayList<String> dishNames = new ArrayList<>();
 
         if (dishes != null) {
