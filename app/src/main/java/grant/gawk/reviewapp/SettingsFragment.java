@@ -4,7 +4,6 @@ package grant.gawk.reviewapp;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import static android.content.ContentValues.TAG;
@@ -30,4 +29,13 @@ public class SettingsFragment extends PreferenceFragment {
             Log.d(TAG, "onActivityCreated: NullPointerThrown");
         }
     }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        Log.d(TAG, "destroyed");
+        DishListActivity dla = (DishListActivity) getActivity();
+        dla.onResume();
+    }
+
 }

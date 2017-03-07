@@ -3,8 +3,10 @@ package grant.gawk.reviewapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,7 +38,13 @@ public class DishListActivity extends AppCompatActivity {
         populateList();
     }
 
-    private void populateList(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateList();
+    }
+
+    private void populateList() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getData());
 
@@ -57,6 +65,22 @@ public class DishListActivity extends AppCompatActivity {
         });
 
     }
+
+    //Overrides functionality to create overflow menu on toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, menu);
+
+        return true;
+    }
+
+    //onClick function for settings menu
+    public void openSettings(MenuItem item) {
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new SettingsFragment()).addToBackStack(null).commit();
+    }
+
 
     //called to move to Restaurant Data form.
     private void showDishForm(View View, Dish dish){

@@ -2,10 +2,10 @@
 <resources>
     <string-array name="pref_syncConnectionTypes_entries">
         <item>A-Z</item>
-        <item>Favorites</item>
+        <item>Z-A</item>
         <item>Recentness</item></string-array>
     <string-array name="pref_syncConnectionTypes_values">
         <item>A-Z</item>
-        <item>Favorites</item>
+        <item>Z-A</item>
         <item>Recentness</item></string-array>
 </resources>

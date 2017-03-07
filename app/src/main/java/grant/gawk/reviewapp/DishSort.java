@@ -4,6 +4,7 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ public class DishSort {
             case "A-Z":
                 myList = azSort(myList);
                 break;
+            //Sort Z-A
+            case "Z-A":
+                myList = zaSort(myList);
+                break;
             //Sort by Favorite
             case "Favorites":
                 myList = favoriteSort(myList);
@@ -54,6 +59,19 @@ public class DishSort {
             {
 
                 return  dish1.getName().compareTo(dish2.getName());
+            }
+        });
+
+        return myList;
+    }
+
+    public static ArrayList zaSort(ArrayList myList){
+        Collections.sort(myList, new Comparator<Dish>() {
+            @Override
+            public int compare(Dish dish1, Dish dish2)
+            {
+
+                return  dish2.getName().compareTo(dish1.getName());
             }
         });
 
@@ -95,7 +113,7 @@ public class DishSort {
                 }
 
 
-                return  d1.compareTo(d2);
+                return  d2.compareTo(d1);
             }
         });
 
