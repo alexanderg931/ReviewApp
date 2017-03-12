@@ -63,14 +63,6 @@
         android:layout_alignLeft="@+id/restName"
         android:layout_alignStart="@+id/restName" />
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/getImage"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:text="Submit"
         android:layout_width="match_parent"
@@ -81,10 +73,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ListView
-        android:id="@+id/listRestaurant"
-        android:layout_width="fill_parent"
+    <Button
+        android:text="Upload Picture"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/getImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/takePicture"
+        android:onClick="takePicture"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/getImage"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="false" />
 
 </RelativeLayout>
