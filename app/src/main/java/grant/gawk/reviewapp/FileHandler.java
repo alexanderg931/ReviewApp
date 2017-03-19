@@ -13,6 +13,8 @@ public class FileHandler {
     // Array List to hold extracted restaurant objects
     private ArrayList<Restaurant> restaurantList;
 
+    public int junkvariable;
+
     // Array List to hold extracted dish objects
     private ArrayList<Dish> dishList;
 
