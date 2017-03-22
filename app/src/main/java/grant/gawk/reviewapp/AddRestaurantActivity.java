@@ -36,7 +36,7 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         restName = (EditText) findViewById(R.id.restName);
     }
 //test
-    
+
     public void takePicture(View v)
     {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); //Allow the gallery to be opened
