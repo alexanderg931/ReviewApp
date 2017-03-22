@@ -19,7 +19,6 @@ import android.content.Context;
 
 public class AddRestaurantActivity extends AppCompatActivity implements OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 1;
-    private ListView lvRestaurant;
     Context appContext;
     ImageView getImage;
     Button btnSubmit;
@@ -35,9 +34,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         appContext = this.getApplicationContext();
         cityName = (EditText) findViewById(R.id.cityName);
         restName = (EditText) findViewById(R.id.restName);
-
-
-        List<Restaurant> listRest = new ArrayList<Restaurant>();
     }
 
     public void takePicture(View v)
