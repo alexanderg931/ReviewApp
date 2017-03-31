@@ -102,6 +102,7 @@ public class FileHandler {
             System.err.println(e.toString());
         }
     }
+    //test
 
     public void writeDish(Restaurant res, Dish dish) {
         // Overloaded method for writeDish. Lets you pass a restaurant object instead of just the name string. Still requires a dish object, though.
