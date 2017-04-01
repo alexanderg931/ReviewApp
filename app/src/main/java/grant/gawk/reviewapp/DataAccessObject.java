@@ -103,6 +103,70 @@ public class DataAccessObject {
         return restaurant;
     }
 
+    //insert a new Dish
+    public Dish insertDish(long restaurant_id, String name, String date, String comment, float rating, String picture){
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.DISH_RESTAURANT_ID, restaurant_id);
+        values.put(DBHelper.DISH_NAME, name);
+        values.put(DBHelper.DISH_DATE, date);
+        values.put(DBHelper.DISH_COMMENT, comment);
+        values.put(DBHelper.DISH_RATING, rating);
+        values.put(DBHelper.DISH_PICTURE, picture);
+
+        long insertId = db.insert(DBHelper.TABLE_DISH, null, values);
+
+        Cursor cursor = db.query(DBHelper.TABLE_DISH, dishColumns, DBHelper.DISH_ID + " = " + insertId,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        Dish newDish = cursorToDish(cursor);
+        cursor.close();
+        return newDish;
+    }
+
+    //Delete an existing dish
+    public void deleteDish(Dish dish){
+        long id = dish.getId();
+        Log.d(TAG, "Deleting Dish with id: " + id);
+        db.delete(DBHelper.TABLE_DISH, DBHelper.DISH_ID + " = " + id, null);
+    }
+
+    //return a list of dishes from a specific restaurant
+    public List<Dish> getDishesFromRestaurant(long restaurant_id){
+        List<Dish> dishes = new ArrayList<>();
+
+        //creates a Cursor pointing to the Dish Table
+        Cursor cursor = db.query(DBHelper.TABLE_DISH, dishColumns, null, null, null, null, null);
+
+        //Iterates through the table returning each dish matching the resturant ID
+        while(!cursor.isAfterLast()){
+            Dish dish = cursorToDish(cursor);
+            if(restaurant_id == dish.getRestaurantId()){
+                dishes.add(dish);
+            }
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return dishes;
+
+    }
+
+    //return the row being pointed at by cursor
+    public Dish cursorToDish(Cursor cursor){
+        Dish dish = new Dish(
+            cursor.getLong(0),
+            cursor.getLong(1),
+            cursor.getString(2),
+            cursor.getString(3),
+            cursor.getString(4),
+            cursor.getFloat(5)
+        );
+
+        return dish;
+    }
+
+
 
 
 }
