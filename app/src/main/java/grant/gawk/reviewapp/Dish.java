@@ -8,14 +8,16 @@ public class Dish {
 
 
     private long _id;
+    private long restaurant_id;
     private String name;
     private String comments;
     private String date;
     private float rating;
     private int favorite = 0;
 
-    public Dish(long id, String n, String d, String c, float r) {
+    public Dish(long id, long rid, String n, String d, String c, float r) {
         _id = id;
+        restaurant_id = rid;
         name = n;
         comments = c;
         rating = r;
