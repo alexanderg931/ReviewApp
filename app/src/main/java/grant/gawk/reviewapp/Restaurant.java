@@ -4,11 +4,15 @@ import android.graphics.Bitmap;
 
 public class Restaurant
 {
+    private long _id;
     private Bitmap Picture;
     private String Name;
     private String City;
 
-    public Restaurant(Bitmap picture, String name, String city){
+
+
+    public Restaurant(long id, Bitmap picture, String name, String city){
+        _id = id;
         Picture = picture;
         Name = name;
         City = city;
@@ -35,6 +39,10 @@ public class Restaurant
 
     public void setCity(String city) {
         City = city;
+    }
+
+    public long getId() {
+        return _id;
     }
 }
 

@@ -54,8 +54,8 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
                 String city = cityName.getText().toString();
                 String restaurantName = restName.getText().toString();
                 FileHandler files = new FileHandler(appContext);
-                Restaurant restaurant = new Restaurant(null, restaurantName, city);
-                files.writeRestaurant(restaurant);
+                //Restaurant restaurant = new Restaurant(null, restaurantName, city);
+                //files.writeRestaurant(restaurant);
 
                 Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
                 startActivity(returnToRestaurantList);

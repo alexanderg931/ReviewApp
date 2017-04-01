@@ -165,10 +165,10 @@ public class FileHandler {
 
                 // Make a new restaurant with the information we extracted from file
                 // Note: first argument is null because we can't save images yet
-                Restaurant newRes = new Restaurant(null, inputBroken[0], inputBroken[1]);
+                //Restaurant newRes = new Restaurant(null, inputBroken[0], inputBroken[1]);
 
                 // Add the restaurant object to the array list
-                restaurantList.add(newRes);
+                //restaurantList.add(newRes);
             }
         }
         catch (FileNotFoundException e) {
@@ -218,7 +218,7 @@ public class FileHandler {
 
                 // Add our new dish object to the dish list
                 /* public Dish(String n, String d, String c, float r) */
-                dishList.add(new Dish(inputBroken[0], inputBroken[1], inputBroken[2], Float.parseFloat(inputBroken[3])));
+                //dishList.add(new Dish(inputBroken[0], inputBroken[1], inputBroken[2], Float.parseFloat(inputBroken[3])));
             }
         }
         catch (FileNotFoundException e) {

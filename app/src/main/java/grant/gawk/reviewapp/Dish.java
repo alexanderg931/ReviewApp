@@ -5,13 +5,17 @@ package grant.gawk.reviewapp;
  */
 
 public class Dish {
+
+
+    private long _id;
     private String name;
     private String comments;
     private String date;
     private float rating;
     private int favorite = 0;
 
-    public Dish(String n, String d, String c, float r) {
+    public Dish(long id, String n, String d, String c, float r) {
+        _id = id;
         name = n;
         comments = c;
         rating = r;
@@ -50,5 +54,8 @@ public class Dish {
         this.favorite = 0;
     }
 
+    public long getId() {
+        return _id;
+    }
 
 }

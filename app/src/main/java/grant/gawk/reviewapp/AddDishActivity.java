@@ -47,11 +47,11 @@ public class AddDishActivity extends AppCompatActivity {
         float dishRating = dishRatingWidget.getRating();
 
         // create new Dish object to hold the data
-        Dish newDish = new Dish(dishName, date, comments, dishRating);
+        //Dish newDish = new Dish(dishName, date, comments, dishRating);
 
         /* portion to interface FileHandler should go here. Namely, feed it the new Dish, so to speak */
-        FileHandler files = new FileHandler(appContext);
-        files.writeDish(restaurantName, newDish);
+        //FileHandler files = new FileHandler(appContext);
+        //files.writeDish(restaurantName, newDish);
         /* End File Handler Block */
 
         Intent transition = new Intent(this, DishListActivity.class);
