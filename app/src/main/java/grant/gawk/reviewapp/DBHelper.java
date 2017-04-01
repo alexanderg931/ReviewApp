@@ -15,8 +15,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_RESTAURANT = "RESTAURANTS";
     public static final String RESTAURANT_ID = "_id";
     public static final String RESTAURANT_NAME = "name";
-    public static final String RESTAURANT_PICTURE = "picture";
     public static final String RESTAURANT_CITY = "city";
+    public static final String RESTAURANT_PICTURE = "picture";
 
 
     public static final String TABLE_DISH = "RESTAURANTS";

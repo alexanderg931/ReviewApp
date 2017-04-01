@@ -11,7 +11,7 @@ public class Restaurant
 
 
 
-    public Restaurant(long id, Bitmap picture, String name, String city){
+    public Restaurant(long id, String picture, String name, String city){
         _id = id;
         Picture = picture;
         Name = name;
