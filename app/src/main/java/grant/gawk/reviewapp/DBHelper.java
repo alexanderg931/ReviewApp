@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_DISH = "RESTAURANTS";
     public static final String DISH_ID = "_id";
-    public static final String DISH_RESTURANT_ID = "restaurant_id";
+    public static final String DISH_RESTAURANT_ID = "restaurant_id";
     public static final String DISH_NAME = "name";
     public static final String DISH_COMMENT = "comment";
     public static final String DISH_RATING = "rating";
@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //SQL String to create the Database
     public static final String DISH_CREATE = "create table "
             + TABLE_DISH + "( " + DISH_ID + " integer primary key autoincrement, "
-            + DISH_RESTURANT_ID + " integer not null, "
+            + DISH_RESTAURANT_ID + " integer not null, "
             + DISH_NAME + " text not null, "
             + DISH_COMMENT + " text, "
             + DISH_DATE + " date not null, "
