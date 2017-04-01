@@ -8,8 +8,6 @@ public class Dish {
 
 
     private long _id;
-
-
     private long restaurant_id;
     private String name;
     private String comments;
