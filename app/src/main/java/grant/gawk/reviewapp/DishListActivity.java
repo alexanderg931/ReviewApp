@@ -14,13 +14,55 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import android.content.Context;
 
+/**
+ * <p>
+ *      The activity to display the list of dishes for a particular restaurant
+ * </p>
+ * @see FileHandler
+ */
 public class DishListActivity extends AppCompatActivity {
+    /**
+     * <p>
+     *     Attribute to hold the ListView object from the activity
+     * </p>
+     */
     ListView dishList;
+
+    /**
+     * <p>
+     *     Attribute to hold the name of the particular restaurant this list is for
+     * </p>
+     */
     String restaurantName;
+
+    /**
+     * <p>
+     *     Array list to hold all the dishes for this particular restaurant
+     * </p>
+     */
     ArrayList<Dish> dishes;
+
+    /**
+     * <p>
+     *     The application context
+     * </p>
+     */
     Context appContext;
 
     @Override
+    /**
+     * <p>
+     *      Unwraps the intent from RestaurantListActivity to get the restaurant name.
+     *      Also sets the title to the restaurant name and initializes the appContext, as well
+     *      as the dishList and restaurantName fields.
+     *      <br />
+     *      <br />
+     *      Makes a call to populateList() to initialize the listView's contents.
+     * </p>
+     * @param savedInstanceState  The bundle object passed by the calling function
+     * @see RestaurantListActivity
+     * @see DishListActivity#populateList()
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
@@ -34,16 +76,35 @@ public class DishListActivity extends AppCompatActivity {
 
         dishList = (ListView) findViewById(R.id.dish_list);
 
-        //This is the fix to the issue of the list not populating, and what I interpreted as transitioning not working
         populateList();
     }
 
     @Override
+    /**
+     * <p>
+     *     Updates the list on activity resume with a call to populateList().
+     * </p>
+     * @see DishListActivity#populateList()
+     */
     protected void onResume() {
         super.onResume();
         populateList();
     }
 
+    /**
+     * <p>
+     *     This method populates the data in the list. It use uses an on click listener to
+     *     record if the user has interacted with the list, then takes the index, copies the
+     *     dish object at that index in the ArrayList dishes, and sends the dish to the ShowDishActivity.
+     * </p>
+     *
+     * <p>
+     *     Makes a call to getData() to refresh the list.
+     * </p>
+     * @see ShowDishActivity
+     * @see DishListActivity#getData()
+     * @see DishListActivity#showDishForm
+     */
     private void populateList() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getData());
@@ -66,8 +127,13 @@ public class DishListActivity extends AppCompatActivity {
 
     }
 
-    //Overrides functionality to create overflow menu on toolbar
     @Override
+    /**
+     * <p>
+     *     Overrides functionality to create overflow menu on toolbar
+     * </p>
+     * @param menu The Menu object passed by the calling function
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar, menu);
@@ -75,14 +141,26 @@ public class DishListActivity extends AppCompatActivity {
         return true;
     }
 
-    //onClick function for settings menu
+    /**
+     * <p>
+     *     Our onClick function for the settings menu. Opens our settings fragment.
+     * </p>
+     * @param item The MenuItem object passed by the calling function
+     */
     public void openSettings(MenuItem item) {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
     }
 
-
-    //called to move to Restaurant Data form.
+    /**
+     * <p>
+     *      The method to bring out the ShowDishActivity. Uses an intent and puts all the attributes
+     *      of the dish object as extras to be unwrapped by the ShowDishActivity
+     * </p>
+     * @param View  The DishListActivity's view
+     * @param dish  The Dish object to be presented on the next form
+     * @see ShowDishActivity
+     */
     private void showDishForm(View View, Dish dish){
 
         Intent intent = new Intent(this, ShowDishActivity.class);
@@ -94,12 +172,33 @@ public class DishListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * <p>
+     *     Sends the restaurant name as the extra in an intent, starts AddDishActivity
+     * </p>
+     * @param view The DishlistActivity's View
+     * @see AddDishActivity
+     */
     public void addDish(View view) {
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         startActivity(intent);
     }
 
+    /**
+     * <p>
+     *      Fetches the dishes from file in FileHandler, and fetches the names of each dish from the
+     *      ArrayList of dishes. Also makes a call to DishSort to sort the dishes.
+     * </p>
+     *
+     * <p>
+     *     <b>Note:</b> Updates the dishes attribute
+     * </p>
+     * @return The name of each dish in an ArrayList of Strings
+     * @see DishSort
+     * @see FileHandler#loadDishes(String)
+     * @see FileHandler#getDishes()
+     */
     public ArrayList<String> getData() {
         FileHandler files = new FileHandler(appContext);
         files.loadDishes(restaurantName);

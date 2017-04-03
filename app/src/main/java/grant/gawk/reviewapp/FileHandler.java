@@ -15,30 +15,60 @@ import android.os.Environment;
  *      Also generates a corresponding "restaurant name".txt file to hold each dish for that restaurant.
  *      Additionally, creates array lists for both restaurants and dishes to be loaded into from file.
  * </p>
- * <p>
- *      Contains the following attributes:
- *      <ul>
- *          <li>restaurantList- An Arraylist to hold restaurant objects loaded from file</li>
- *          <li>dishList- An ArrayList to hold dish objects loaded from file</li>
- *          <li>rTxt- The variable to hold the main restaurant file</li>
- *          <li>dTxt- The variable to hold the dish file for a particular restaurant</li>
- *          <li>output- A BufferedWriter from Java's API used to efficiently write characters to file</li>
- *          <li>reader- A Scanner from Java's API used to parse the contents of files</li>
- *          <li>Context- A file context from Android's API used to find the directory the files are in</li>
- *      </ul>
- * @Author Grant
+ * @author Grant
  * @version 1.0
  * @since 1.0
  * @deprecated To be replaced by SQLLite in next release
  */
 public class FileHandler {
 
+    /**
+     * <p>
+     *     An Arraylist to hold restaurant objects loaded from file
+     * </p>
+     */
     private ArrayList<Restaurant> restaurantList;
+
+    /**
+     * <p>
+     *     An ArrayList to hold dish objects loaded from file
+     * </p>
+     */
     private ArrayList<Dish> dishList;
+
+    /**
+     * <p>
+     *    The variable to hold the main restaurant file
+     * </p>
+     */
     private File rTxt;
+
+    /**
+     * <p>
+     *     The variable to hold the dish file for a particular restaurant
+     * </p>
+     */
     private File dTxt;
+
+    /**
+     * <p>
+     *     A BufferedWriter from Java's API used to efficiently write characters to file
+     * </p>
+     */
     private BufferedWriter output;
+
+    /**
+     * <p>
+     *     A Scanner from Java's API used to parse the contents of files
+     * </p>
+     */
     private Scanner reader;
+
+    /**
+     * <p>
+     *     A file context from Android's API used to find the directory the files are in
+     * </p>
+     */
     private Context appContext;
 
     /**

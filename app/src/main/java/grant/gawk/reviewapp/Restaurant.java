@@ -2,23 +2,34 @@ package grant.gawk.reviewapp;
 import android.graphics.Bitmap;
 
 /**
- * A data object used to store restaurant data, which includes a picture, the name, and the city.
- * Accompanying dish objects are not stored directly with the Restaurant.
  * <p>
- *     Contains three attributes:
- *     <ul>
- *         <li>Picture- A picture of the restaurant</li>
- *         <li>Name- The name of the restaurant</li>
- *         <li>City- The city the restaurant is in</li>
- *     </ul>
+ *      A data object used to store restaurant data, which includes a picture, the name, and the city.
+ *      Accompanying dish objects are not stored directly with the Restaurant.
  * </p>
  * @version 1.0
  * @see Dish
  */
 public class Restaurant
 {
+    /**
+     * <p>
+     *     A picture of the restaurant.
+     * </p>
+     */
     private Bitmap Picture;
+
+    /**
+     * <p>
+     *     The name of the restaurant.
+     * </p>
+     */
     private String Name;
+
+    /**
+     * <p>
+     *     The city the restaurant is in.
+     * </p>
+     */
     private String City;
 
     /**
@@ -34,7 +45,7 @@ public class Restaurant
     }
 
     /**
-     * Changes the initialized value of the restaurant's Picture attribute
+     * Changes the initialized value of the restaurant's Picture attribute.
      * @param picture   A picture to replace the current picture attribute.
      */
     public void setPicture(Bitmap picture) {
@@ -42,6 +53,9 @@ public class Restaurant
     }
 
     /**
+     * <p>
+     *     Gets the restaurant's picture.
+     * </p>
      * @return The restaurant's picture.
      */
     public Bitmap getPicture() {
@@ -49,6 +63,9 @@ public class Restaurant
     }
 
     /**
+     * <p>
+     *     Gets the name of the restaurant.
+     * </p>
      * @return The name of the restaurant.
      */
     public String getName() {
@@ -56,7 +73,9 @@ public class Restaurant
     }
 
     /**
-     * Changes the initialized value of the restaurant's Name attribute
+     * <p>
+     *     Changes the initialized value of the restaurant's Name attribute.
+     * </p>
      * @param name  The name of the restaurant.
      */
     public void setName(String name) {
@@ -64,7 +83,9 @@ public class Restaurant
     }
 
     /**
-     *
+     * <p>
+     *     Gets the city the restaurant is in.
+     * </p>
      * @return The city the restaurant is in.
      */
     public String getCity() {
@@ -72,7 +93,9 @@ public class Restaurant
     }
 
     /**
-     * Changes the initialized value of the restaurant's City attribute
+     * <p>
+     *     Changes the initialized value of the restaurant's City attribute
+     * </p>
      * @param city  The city the restaurant is in
      */
     public void setCity(String city) {
