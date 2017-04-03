@@ -4,7 +4,9 @@ package grant.gawk.reviewapp;
  * <p>
  *     The Dish object used to store data related to the individual dishes for a restaurant.
  * </p>
+ * @author Grant
  * @version 1.0
+ * @since 1.0
  * @see Restaurant
  */
 public class Dish {

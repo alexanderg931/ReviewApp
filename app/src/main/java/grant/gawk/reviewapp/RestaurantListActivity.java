@@ -14,11 +14,47 @@ import android.widget.ListView;
 import android.content.Context;
 import java.util.ArrayList;
 
+/**
+ * <p>
+ *     The activity used to list Restaurants.
+ * </p>
+ * @author Anthony
+ * @version 1.0
+ * @since 1.0
+ * @see FileHandler
+ * @see AddRestaurantActivity
+ * @see ShowDishActivity
+ */
 public class RestaurantListActivity extends AppCompatActivity {
+
+    /**
+     * <p>
+     *     The ListView we will be putting restaurants in.
+     * </p>
+     */
     ListView restaurantList;
+
+    /**
+     * <p>
+     *     An ArrayAdapter used for something. Anthony needs to explain this.
+     * </p>
+     */
     ArrayAdapter adapter;
+
+    /**
+     * <p>
+     *     The current context of the application. Used for File Handling purposes
+     * </p>
+     */
     Context appContext;
 
+    /**
+     * <p>
+     *     Initializes the ListView attribute for the restaurant, initializes the appContext attribute,
+     *     and calls populateList() to fill the list with contents.
+     * </p>
+     * @param savedInstanceState The Bundle object passed by the calling function
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +85,18 @@ public class RestaurantListActivity extends AppCompatActivity {
 //    }
 
 
-
+    /**
+     * <p>
+     *     The method used to populate the list of restaurants. Uses an onclick listener to
+     *     record when the user interacts with a list element, and sends the index to getData().
+     *     <br />
+     *     <br />
+     *     Once it is processed by getData(), showRestaurantForm() is called to open the list of dishes for
+     *     that restaurant.
+     * </p>
+     * @see RestaurantListActivity#getData()
+     * @see RestaurantListActivity#showRestaurantForm(View, String)
+     */
     private void populateList(){
         adapter = new ArrayAdapter<>(this,
                 //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
@@ -76,19 +123,42 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     }
 
-    //called to move to Restaurant Data form.
+    /**
+     * <p>
+     *      Creates an intent and sends the name of the restaurant as an extra. Then opens the
+     *      DishListActivity.
+     * </p>
+     * @param View              The active view of the program.
+     * @param restaurantName    The name of the restaurant.
+     * @see DishListActivity
+     */
     private void showRestaurantForm(View View,  String restaurantName){
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         startActivity(intent);
     }
 
+    /**
+     * <p>
+     *     Opens up the AddRestaurantActivity so that a new restaurant can be added.
+     * </p>
+     * @param view  The active view of the program.
+     * @see AddRestaurantActivity
+     */
     public void addRestaurant(View view){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
         startActivity(intent);
 
     }
 
+    /**
+     * <p>
+     *     Uses the FileHandler to fetch the restaurants ArrayList and then extracts the String
+     *     name from each one, and places them into a new ArrayList of Strings.
+     * </p>
+     * @return  An ArrayList of Strings containing the names of the restaurant.
+     * @see FileHandler
+     */
     public ArrayList<String> getData() {
         FileHandler files = new FileHandler(appContext);
         ArrayList<String> restaurantNames = new ArrayList<>();

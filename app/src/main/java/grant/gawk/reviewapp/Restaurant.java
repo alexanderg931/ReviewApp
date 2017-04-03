@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
  *      A data object used to store restaurant data, which includes a picture, the name, and the city.
  *      Accompanying dish objects are not stored directly with the Restaurant.
  * </p>
+ * @author Khoa
  * @version 1.0
+ * @since 1.0
  * @see Dish
  */
 public class Restaurant

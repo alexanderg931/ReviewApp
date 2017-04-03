@@ -7,12 +7,52 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+/**
+ * <p>
+ *     Shows the dish whose attributes were sent in the intent from the DishListActivity in a user-friendly way.
+ * </p>
+ * @author Grant
+ * @version 1.0
+ * @since 1.0
+ * @see DishListActivity
+ */
 public class ShowDishActivity extends AppCompatActivity {
+
+    /**
+     * <p>
+     *     The UI piece where the date the dish was submitted is displayed.
+     * </p>
+     */
     EditText dateWidget;
+
+    /**
+     * <p>
+     *     The UI piece where the name of the dish is displayed.
+     * </p>
+     */
     EditText nameWidget;
+
+    /**
+     * <p>
+     *     The UI piece where the comments from the user are displayed.
+     * </p>
+     */
     EditText commentsWidget;
+
+    /**
+     * <p>
+     *     The UI piece where the rating of the dish is displayed.
+     * </p>
+     */
     RatingBar ratingWidget;
 
+    /**
+     * <p>
+     *     Grabs the dish attributes from the intent's extras, as well as
+     *     grabs each UI element we'll be modifying and references them in the *Widget fields.
+     * </p>
+     * @param savedInstanceState The Bundle object passed by the calling function
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +78,5 @@ public class ShowDishActivity extends AppCompatActivity {
         nameWidget.setText(nameToUse);
         commentsWidget.setText(commentsToUse);
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
-    }
-
-    private void dummyData() {
-        String dateToUse = "3/1/2017";
-        String nameToUse = "Carne Asada";
-        String commentsToUse = "Delicious";
-        float ratingToUse = 5f;
-
-        dateWidget.setText(dateToUse);
-        nameWidget.setText(nameToUse);
-        commentsWidget.setText(commentsToUse);
-        ratingWidget.setRating(ratingToUse);
     }
 }

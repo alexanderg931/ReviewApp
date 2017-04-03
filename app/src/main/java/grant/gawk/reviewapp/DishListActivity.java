@@ -18,6 +18,9 @@ import android.content.Context;
  * <p>
  *      The activity to display the list of dishes for a particular restaurant
  * </p>
+ * @author Anthony, Warren
+ * @version 1.0
+ * @since 1.0
  * @see FileHandler
  */
 public class DishListActivity extends AppCompatActivity {
@@ -49,7 +52,6 @@ public class DishListActivity extends AppCompatActivity {
      */
     Context appContext;
 
-    @Override
     /**
      * <p>
      *      Unwraps the intent from RestaurantListActivity to get the restaurant name.
@@ -63,6 +65,7 @@ public class DishListActivity extends AppCompatActivity {
      * @see RestaurantListActivity
      * @see DishListActivity#populateList()
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
@@ -79,13 +82,13 @@ public class DishListActivity extends AppCompatActivity {
         populateList();
     }
 
-    @Override
     /**
      * <p>
      *     Updates the list on activity resume with a call to populateList().
      * </p>
      * @see DishListActivity#populateList()
      */
+    @Override
     protected void onResume() {
         super.onResume();
         populateList();
@@ -127,13 +130,13 @@ public class DishListActivity extends AppCompatActivity {
 
     }
 
-    @Override
     /**
      * <p>
      *     Overrides functionality to create overflow menu on toolbar
      * </p>
      * @param menu The Menu object passed by the calling function
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar, menu);
