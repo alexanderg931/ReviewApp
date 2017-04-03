@@ -9,33 +9,48 @@ import java.util.Scanner;
 import android.content.Context;
 import android.os.Environment;
 
+/**
+ * <p>
+ *      Generates a single restaurants.txt file to hold all restaurants.
+ *      Also generates a corresponding "restaurant name".txt file to hold each dish for that restaurant.
+ *      Additionally, creates array lists for both restaurants and dishes to be loaded into from file.
+ * </p>
+ * <p>
+ *      Contains the following attributes:
+ *      <ul>
+ *          <li>restaurantList- An Arraylist to hold restaurant objects loaded from file</li>
+ *          <li>dishList- An ArrayList to hold dish objects loaded from file</li>
+ *          <li>rTxt- The variable to hold the main restaurant file</li>
+ *          <li>dTxt- The variable to hold the dish file for a particular restaurant</li>
+ *          <li>output- A BufferedWriter from Java's API used to efficiently write characters to file</li>
+ *          <li>reader- A Scanner from Java's API used to parse the contents of files</li>
+ *          <li>Context- A file context from Android's API used to find the directory the files are in</li>
+ *      </ul>
+ * @Author Grant
+ * @version 1.0
+ * @since 1.0
+ * @deprecated To be replaced by SQLLite in next release
+ */
 public class FileHandler {
-    // Array List to hold extracted restaurant objects
+
     private ArrayList<Restaurant> restaurantList;
-
-    public int junkvariable;
-
-    // Array List to hold extracted dish objects
     private ArrayList<Dish> dishList;
-
-    // Variable to hold the main restaurant file
     private File rTxt;
-
-    // Variable to hold the dish file for a particular restaurant
     private File dTxt;
-
-    // Required by Java to write characters to file efficiently
     private BufferedWriter output;
-
-    // It can be fed a file in its constructor, so we'll use it to read the files
     private Scanner reader;
-
-    // The current context. Only used to grab the external file directory.
     private Context appContext;
 
+    /**
+     * <p>
+     *     Constructor for the File Handler.
+     *     The constructor generates a restaurant file on first launch. If it's not the first launch (or there's already a restaurants.txt),
+     *     it simply loads the data from that instead.
+     *     Catches IOException in the event the file cannot be created
+     * </p>
+     * @param context   The application context so that we can find the directory the files are in
+     */
     public FileHandler(Context context) {
-        // Constructor for the File Handler, takes the Application's Context as an argument
-        // The constructor generates a restaurant file on first launch. If it's not the first launch (or there's already a restaurants.txt), it simply loads the data from that instead.
         appContext = context;
 
         // Makes a new File object at the location where we'll save the data. .getExternalFilesDir(null) gives us our app's personal external storage directory
@@ -57,9 +72,21 @@ public class FileHandler {
         }
     }
 
+    /**
+     * <p>
+     *      Method to write a dish object to file. Uses BufferedWriter and FileWriter from the Java API to efficiently
+     *      perform this operation. Dishes are written to file with all their attributes separated by _.
+     *      Each new line is a new dish.
+     * </p>
+     *
+     * <p>
+     *      Catches an IOException in the event we cannot write to the directory. It also checks first to
+     *      see if the file exists, and creates it if it does not.
+     * </p>
+     * @param res   A string containing the restaurant name
+     * @param dish  A dish object to be written to file
+     */
     public void writeDish(String res, Dish dish) {
-        // Method to write a dish object to file.  Requires the restaurant name and dish object as inputs
-
         // Create a new File object that lies at /<our external data storage path>/<name of restaurant>.txt
         dTxt = new File(appContext.getExternalFilesDir(null), res+".txt");
 
@@ -103,11 +130,32 @@ public class FileHandler {
         }
     }
 
+    /**
+     * <p>
+     *      Overloaded method for writeDish, where you can, instead of supplying a string, supply the restaurant object.
+     *      Simply calls writeDish(str, dish) with the string extracted from the restaurant object.
+     * </p>
+     * @param res   The restaurant object to be used in place of a string
+     * @param dish  The dish object to be written to file
+     * @see FileHandler#writeDish(String, Dish)
+     */
     public void writeDish(Restaurant res, Dish dish) {
-        // Overloaded method for writeDish. Lets you pass a restaurant object instead of just the name string. Still requires a dish object, though.
         writeDish(res.getName(), dish);
     }
 
+    /**
+     * <p>
+     *      Method to write a restaurant object to file. Uses BufferedWriter and FileWriter from the Java API to efficiently
+     *      perform this operation. Restaurants are written to file with all their (non-picture) attributes separated by _.
+     *      Each new line is a new Restaurant.
+     *      loadRestaurants is also called at the end to refresh the restaurant ArrayList.
+     * </p>
+     *
+     * <p>
+     *      Catches an IOException in the event we cannot write to the directory.
+     * </p>
+     * @param res   A restaurant object to write to file
+     */
     public void writeRestaurant(Restaurant res) {
         // Write a new restaurant to the restaurants file! See writeDish(String res, Dish dish) for detailed look into BufferedWriter/FileWriter
         try {
@@ -137,8 +185,19 @@ public class FileHandler {
         loadRestaurants();
     }
 
+    /**
+     * <p>
+     *     Our method to reload the ArrayList containing all RestaurantObjects, or initialize it for the first time.
+     *     Makes use of Scanner from the Java API to read the restaurant file. File contents are read on a line by line
+     *     basis and attributes on each line are delimited by a _ character. Each line is reconstructed into an individual
+     *     restaurant object with the Picture attribute being set to null.
+     * </p>
+     *
+     * <p>
+     *     Catches a FileNotFoundException in the event the restaurants.txt file cannot be located.
+     * </p>
+     */
     public void loadRestaurants() {
-        // Our method to reload our ArrayList (or do the first additions) of Restaurant Objects
         try {
             // Create a new scanner loaded with our restaurant file as input
             // As noted in writeRestaurant, we just pass the attribute because it never changes. There's never a different restaurants.txt
@@ -176,9 +235,22 @@ public class FileHandler {
         }
     }
 
+    /**
+     * <p>
+     *      The method to load the dishes for a particular restaurant. For memory reasons, dishes are loaded on-demand
+     *      rather than loaded all at the initialization of FileHandler. Makes use of Scanner from the Java API to read the dish file for a particular restaurant.
+     *      File contents are read on a line by line basis and attributes on each line are delimited by a _ character.
+     *      Each line is reconstructed into an individual dish object, and dishes are loaded into the dish ArrayList, which <b>only holds one restaurant's data at a time</b>.
+     *      Also flushes the dish ArrayList of contents on run, and creates a restaurant specific file for the dishes on first run, or if it doesn't exist.
+     * </p>
+     *
+     * <p>
+     *     Catches IOException in the event the dish file cannot be created.
+     *     Catches FileNotFound exception in the event the dish file cannot be read
+     * </p>
+     * @param res   The restaurant name to load dishes from file
+     */
     public void loadDishes(String res) {
-        // The method to load the dishes for a specific restaurant into our dish array list
-        // Dishes loaded on demand for memory concerns, as opposed to restaurants which are front-loaded
         try {
             // Make a new file object at location /<External Files Directory>/<name of restaurant>.txt
             dTxt = new File(appContext.getExternalFilesDir(null), res+".txt");
@@ -226,15 +298,30 @@ public class FileHandler {
         }
     }
 
+    /**
+     * <p>
+     *     Overloaded method of loadDishes(String) that allows you to use a restaurant object instead of a string. Like the other overloaded function,
+     *     it extracts the name of the restaurant from the object, and then calls the likewise named method that takes a String.
+     * </p>
+     * @param res   The restaurant object have its dishes loaded from file
+     * @see FileHandler#loadDishes(String)
+     */
     public void loadDishes(Restaurant res) {
-        // Overload of loadDishes where you can use the Restaurant object instead of the restaurant name string
         loadDishes(res.getName());
     }
 
+    /**
+     * @return The dishes for a particular restaurant that has already had the loadDishes operation performed
+     * @see FileHandler#loadDishes(String)
+     */
     public ArrayList<Dish> getDishes() {
         return dishList;
     }
 
+    /**
+     * @return An ArrayList containing all Restaurant Objects currently written to file
+     * @see FileHandler#loadRestaurants()
+     */
     public ArrayList<Restaurant> getRestaurants() {
         return restaurantList;
     }

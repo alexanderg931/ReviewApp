@@ -15,8 +15,10 @@ import java.util.Date;
 
 public class DishSort {
 
+    /**
+     * Private constructor to prevent creation of sort objects.
+     */
     private DishSort(){
-        //Prevents creation of sort objects
     }
 
     public static ArrayList sort(ArrayList myList, Context context){

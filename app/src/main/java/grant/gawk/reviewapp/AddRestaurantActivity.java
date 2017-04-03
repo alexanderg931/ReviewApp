@@ -16,6 +16,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 
 public class AddRestaurantActivity extends AppCompatActivity implements OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 1;
