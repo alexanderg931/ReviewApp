@@ -1,27 +1,24 @@
 package grant.gawk.reviewapp;
-import android.graphics.Bitmap;
-
-
 public class Restaurant
 {
     private long _id;
-    private Bitmap Picture;
+    private String Picture;
     private String Name;
     private String City;
 
 
 
-    public Restaurant(long id, String picture, String name, String city){
+    Restaurant(long id, String picture, String name, String city){
         _id = id;
         Picture = picture;
         Name = name;
         City = city;
     }
 
-    public void setPicture(Bitmap picture) {
+    public void setPicture(String picture) {
         Picture = picture;
     }
-    public Bitmap getPicture() {
+    public String getPicture() {
         return Picture;
     }
 
@@ -43,6 +40,12 @@ public class Restaurant
 
     public long getId() {
         return _id;
+    }
+
+    @Override
+    public String toString(){
+
+        return this.getName();
     }
 }
 

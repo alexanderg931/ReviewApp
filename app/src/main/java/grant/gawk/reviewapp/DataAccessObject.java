@@ -12,11 +12,8 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by Anthony on 4/1/2017.
- */
 
-public class DataAccessObject {
+class DataAccessObject {
 
     private SQLiteDatabase db;
     private DBHelper dbHelper;
@@ -38,19 +35,19 @@ public class DataAccessObject {
             DBHelper.DISH_NAME
             };
 
-     public DataAccessObject(Context context){
+     DataAccessObject(Context context){
          dbHelper = new DBHelper(context);
      }
 
-     public void open() throws SQLException{
+     void open() throws SQLException{
          db = dbHelper.getWritableDatabase();
      }
 
-     public void close(){
+     void close(){
          dbHelper.close();
      }
 
-     public Restaurant insertRestaurant(String picture, String name, String city){
+     Restaurant insertRestaurant(String picture, String name, String city){
          ContentValues values = new ContentValues(); //Creates a list of Key-Values pairs to add
 
          //Add values under appropriate columns
@@ -60,6 +57,7 @@ public class DataAccessObject {
 
          //add primary key
          long insertId = db.insert(DBHelper.TABLE_RESTAURANT, null, values);
+         Log.d(TAG, "inserting at: " + insertId);
 
          Cursor cursor = db.query(DBHelper.TABLE_RESTAURANT, restaurantColumns,
                  DBHelper.RESTAURANT_ID + " = " + insertId, null, null, null, null);
@@ -71,7 +69,7 @@ public class DataAccessObject {
      }
 
      //Delete a restaurant entry
-    public void deleteRest(Restaurant restaurant){
+     void deleteRest(Restaurant restaurant){
         long id = restaurant.getId();
         Log.d(TAG, "Deleting Restaurant with id: " + id);
         db.delete(DBHelper.TABLE_RESTAURANT, DBHelper.RESTAURANT_ID + " = " + id, null);
@@ -81,13 +79,15 @@ public class DataAccessObject {
     }
 
     //Return a list of all Restaurants
-    public List<Restaurant> getAllRestaurants(){
+    List<Restaurant> getAllRestaurants(){
         List<Restaurant> restaurants = new ArrayList<>();
 
         //create a cursor pointing to the Restaurant Table
         Cursor cursor = db.query(DBHelper.TABLE_RESTAURANT, restaurantColumns, null, null, null, null, null);
 
         //Iterates through the table and adds each restaurant to a list
+        Log.d(TAG, cursor.getPosition() + "");
+        cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Restaurant restaurant = cursorToRest(cursor);
             restaurants.add(restaurant);
@@ -99,8 +99,12 @@ public class DataAccessObject {
     }
 
     private Restaurant cursorToRest(Cursor cursor){
-        Restaurant restaurant = new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
-        return restaurant;
+        Log.d(TAG, cursor.getString(0));
+        Log.d(TAG, cursor.getString(1));
+        Log.d(TAG, cursor.getString(2));
+        Log.d(TAG, cursor.getString(3));
+        //Restaurant restaurant = new Restaurant(11L, "test", "test", "test");
+        return new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
     }
 
     //insert a new Dish
@@ -153,8 +157,9 @@ public class DataAccessObject {
     }
 
     //return the row being pointed at by cursor
-    public Dish cursorToDish(Cursor cursor){
-        Dish dish = new Dish(
+    private Dish cursorToDish(Cursor cursor){
+
+        return new Dish(
             cursor.getLong(0),
             cursor.getLong(1),
             cursor.getString(2),
@@ -162,8 +167,6 @@ public class DataAccessObject {
             cursor.getString(4),
             cursor.getFloat(5)
         );
-
-        return dish;
     }
 
 

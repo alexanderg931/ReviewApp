@@ -1,29 +1,23 @@
 package grant.gawk.reviewapp;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.view.View.OnClickListener;
-import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
-import android.content.Context;
 
 public class AddRestaurantActivity extends AppCompatActivity implements OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 1;
     Context appContext;
     ImageView getImage;
-    Button btnSubmit;
-    Button takePicture;
     EditText restName, cityName;
+    DataAccessObject dao;
 
 
     @Override
@@ -34,8 +28,21 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         appContext = this.getApplicationContext();
         cityName = (EditText) findViewById(R.id.cityName);
         restName = (EditText) findViewById(R.id.restName);
+        dao = new DataAccessObject(appContext);
+        dao.open();
     }
-//test
+
+    @Override
+    protected void onResume(){
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
+    }
 
     public void takePicture(View v)
     {
@@ -52,10 +59,10 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
                 break;
             case R.id.btnSubmit:
                 String city = cityName.getText().toString();
-                String restaurantName = restName.getText().toString();
-                FileHandler files = new FileHandler(appContext);
-                //Restaurant restaurant = new Restaurant(null, restaurantName, city);
-                //files.writeRestaurant(restaurant);
+                String restaurant = restName.getText().toString();
+                String picturePath = "No Picture"; //Temporary until we figure out how to store images
+
+                dao.insertRestaurant(picturePath, restaurant, city);
 
                 Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
                 startActivity(returnToRestaurantList);

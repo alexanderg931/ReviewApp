@@ -1,23 +1,24 @@
 package grant.gawk.reviewapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Context;
-import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantListActivity extends AppCompatActivity {
     ListView restaurantList;
-    ArrayAdapter adapter;
+    ArrayAdapter<Restaurant> adapter;
     Context appContext;
+    private static final String TAG = "Restaurant List";
+    private DataAccessObject dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +27,22 @@ public class RestaurantListActivity extends AppCompatActivity {
         //get reference to restaurant list and populate it.
         restaurantList = (ListView) findViewById(R.id.restaurant_list);
         appContext = this.getApplicationContext();
+        dao = new DataAccessObject(appContext);
+        dao.open();
         populateList();
 
+    }
+
+    @Override
+    protected void onResume(){
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
     }
 
 
@@ -51,55 +66,73 @@ public class RestaurantListActivity extends AppCompatActivity {
 
 
     private void populateList(){
-        adapter = new ArrayAdapter<>(this,
-                //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
-                android.R.layout.simple_list_item_1, getData());
-
-        setTitle("My Restaurants");
+        //get list of restaurants from Database and adapt them to list view
+        final List<Restaurant> restaurants = dao.getAllRestaurants();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, restaurants);
         restaurantList.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
+
+        //call when List item is clicked
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
-                Log.d("onClick" , parent.toString());
-                Log.d("onClick" , v.toString());
-                Log.d("onClick" , Integer.toString(position));
-                Log.d("onClick" , Long.toString(id));
-                Log.d("onClick" , getData().get((int)id));
+                Log.d("Restaurant List Item" , restaurants.get((int)id).toString());
 
-                String restaurantName = getData().get((int)id); //get name of selected restaurant
+                Restaurant clickedRestaurant = adapter.getItem((int) id);
+                assert clickedRestaurant != null;
+                String restaurantName = clickedRestaurant.getName(); //get name of selected restaurant
                 adapter.notifyDataSetChanged();
-                showRestaurantForm(v, restaurantName);
-
+                showRestaurantForm(restaurantName); //move to Dish list
             }
         });
 
+        //call when item is Long Clicked
+        restaurantList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView parent, View v, int position, final long id){
+                Log.d(TAG, "Long Clicked");
+                AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantListActivity.this);
+                builder.setMessage("Delete Entry?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked delete");
+                        if (restaurantList.getCount() > 0) {
+                            Restaurant rest = adapter.getItem((int) id);
+                            dao.deleteRest(rest);
+                            adapter.remove(rest);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked Cancel");
+                        //do nothing
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+                return true;
+            }
+        });
     }
 
-    //called to move to Restaurant Data form.
-    private void showRestaurantForm(View View,  String restaurantName){
+    //called to move to List of Dishes
+    private void showRestaurantForm(String restaurantName){
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         startActivity(intent);
     }
 
-    public void addRestaurant(View view){
+    //called to move to add Restaurant Form
+    public void addRestaurant(View v){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
         startActivity(intent);
 
     }
 
-    public ArrayList<String> getData() {
-        FileHandler files = new FileHandler(appContext);
-        ArrayList<String> restaurantNames = new ArrayList<>();
-        ArrayList<Restaurant> restaurants = files.getRestaurants();
 
-        if (restaurants != null) {
-            for (int x = 0; x < restaurants.size(); x++) {
-                restaurantNames.add(restaurants.get(x).getName());
-            }
-        }
-        return restaurantNames;
-    }
 
 }
