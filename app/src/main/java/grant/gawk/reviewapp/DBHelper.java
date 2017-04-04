@@ -32,7 +32,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     //Strings of the Database Name/Version
     private static final String DB_NAME = "DejaFood.db";
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 9;
 
     //SQL String to create the Database
     private static final String RESTAURANT_CREATE = "create table "

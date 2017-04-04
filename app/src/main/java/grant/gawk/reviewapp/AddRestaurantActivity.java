@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
  * @author Khoa
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  * @see RestaurantListActivity
  */
 
@@ -55,7 +54,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
      * </p>
      */
     ImageView getImage;
-    EditText restName, cityName;
     DataAccessObject dao;
 
     /**
@@ -116,7 +114,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
      * Please note, that due to issues with obtaining the URI as a non-null reference from the gallery, the Restaurant object is created with a
      * null picture value in its constructor, so fixes to the image taking will need to be followed by a change of this null to the Bitmap object.
      * @param v     The current View.
-     * @see FileHandler
      * @see RestaurantListActivity
      */
     @Override

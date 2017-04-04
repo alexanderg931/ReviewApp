@@ -20,7 +20,6 @@ import android.content.Context;
  * @version 1.0
  * @since 1.0
  * @see RestaurantListActivity
- * @see FileHandler
  */
 public class AddDishActivity extends AppCompatActivity {
 
@@ -64,7 +63,7 @@ public class AddDishActivity extends AppCompatActivity {
      *     The context of this application. Necessary for file handling purposes.
      * </p>
      */
-    Long restaurantID;
+    Long restaurantId;
     Context appContext;
     DataAccessObject dao;
 
@@ -87,7 +86,7 @@ public class AddDishActivity extends AppCompatActivity {
         dao.open();
         Intent intent = getIntent();
         restaurantName = intent.getStringExtra("restaurantName");
-        restaurantID = intent.getLongExtra("restaurantID", 0L);
+        restaurantId = intent.getLongExtra("restaurantId", 0L);
 
         dishNameWidget = (EditText) findViewById(R.id.dishNameEntry);
         commentsWidget = (EditText) findViewById(R.id.commentTextBox);
@@ -128,11 +127,11 @@ public class AddDishActivity extends AppCompatActivity {
         String date = dateWidget.getText().toString();
         float dishRating = dishRatingWidget.getRating();
 
-        dao.insertDish(restaurantID, dishName, date, comments, dishRating, null);
+        dao.insertDish(restaurantId, dishName, date, comments, dishRating, null);
 
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurantName);
-        intent.putExtra("restaurantID", restaurantID);
+        intent.putExtra("restaurantId", restaurantId);
         startActivity(intent);
 
     }

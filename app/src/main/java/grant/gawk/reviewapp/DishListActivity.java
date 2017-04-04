@@ -1,8 +1,10 @@
 package grant.gawk.reviewapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,9 +24,9 @@ import java.util.List;
  * @author Anthony, Warren
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  */
 public class DishListActivity extends AppCompatActivity {
+    private static final String TAG = "DishList";
     /**
      * <p>
      *     Attribute to hold the ListView object from the activity
@@ -38,7 +40,7 @@ public class DishListActivity extends AppCompatActivity {
      * </p>
      */
     String restaurantName;
-    Long restaurantID;
+    Long restaurantId;
     ArrayAdapter<Dish> adapter;
     Context appContext;
     DataAccessObject dao;
@@ -70,7 +72,7 @@ public class DishListActivity extends AppCompatActivity {
         Log.d("dishCLick", intent.getStringExtra("restaurantName"));
         setTitle(intent.getStringExtra("restaurantName"));
         restaurantName = intent.getStringExtra("restaurantName");
-        restaurantID = intent.getLongExtra("restaurantID", 0L);
+        restaurantId = intent.getLongExtra("restaurantId", 0L);
 
 
         dishList = (ListView) findViewById(R.id.dish_list);
@@ -108,15 +110,15 @@ public class DishListActivity extends AppCompatActivity {
      *     Makes a call to getData() to refresh the list.
      * </p>
      * @see ShowDishActivity
-     * @see DishListActivity#getData()
      * @see DishListActivity#showDishForm
      */
     private void populateList() {
         //get list of restaurants from Database and adapt them to list view
-        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantID);
+        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantId);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishes);
         dishList.setAdapter(adapter);
 
+        //onClick
         dishList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Log.d("Dish List Item" , dishes.get((int)id).toString());
@@ -127,6 +129,50 @@ public class DishListActivity extends AppCompatActivity {
                 showDishForm(clickedDish);
             }
         });
+
+
+        //call when item is Long Clicked
+        dishList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView parent, View v, int position, final long id){
+                Log.d(TAG, "Long Clicked");
+                AlertDialog.Builder builder = new AlertDialog.Builder(DishListActivity.this);
+                builder.setMessage("Delete Entry?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked delete");
+                        if (dishList.getCount() > 0) {
+                            Dish dish = adapter.getItem((int) id);
+                            dao.deleteDish(dish);
+                            adapter.remove(dish);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked Cancel");
+                        //do nothing
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+                return true;
+            }
+        });
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -178,7 +224,7 @@ public class DishListActivity extends AppCompatActivity {
     public void addDish(View view) {
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
-        intent.putExtra("restaurantID", restaurantID);
+        intent.putExtra("restaurantId", restaurantId);
         startActivity(intent);
     }
 
