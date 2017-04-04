@@ -63,8 +63,6 @@ public class DishListActivity extends AppCompatActivity {
         //get list of restaurants from Database and adapt them to list view
         final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantID);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishes);
-
-
         dishList.setAdapter(adapter);
 
         dishList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -111,6 +109,7 @@ public class DishListActivity extends AppCompatActivity {
     public void addDish(View view) {
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
+        intent.putExtra("restaurantID", restaurantID);
         startActivity(intent);
     }
 

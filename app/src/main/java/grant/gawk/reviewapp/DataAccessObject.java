@@ -103,12 +103,11 @@ class DataAccessObject {
         Log.d(TAG, cursor.getString(1));
         Log.d(TAG, cursor.getString(2));
         Log.d(TAG, cursor.getString(3));
-        //Restaurant restaurant = new Restaurant(11L, "test", "test", "test");
-        return new Restaurant(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        return new Restaurant(cursor.getLong(0), cursor.getString(3), cursor.getString(1), cursor.getString(2));
     }
 
     //insert a new Dish
-    public Dish insertDish(long restaurant_id, String name, String date, String comment, float rating, String picture){
+    Dish insertDish(long restaurant_id, String name, String date, String comment, float rating, String picture){
         ContentValues values = new ContentValues();
         values.put(DBHelper.DISH_RESTAURANT_ID, restaurant_id);
         values.put(DBHelper.DISH_NAME, name);
@@ -136,13 +135,14 @@ class DataAccessObject {
     }
 
     //return a list of dishes from a specific restaurant
-    public List<Dish> getDishesFromRestaurant(long restaurant_id){
+    List<Dish> getDishesFromRestaurant(long restaurant_id){
         List<Dish> dishes = new ArrayList<>();
 
         //creates a Cursor pointing to the Dish Table
         Cursor cursor = db.query(DBHelper.TABLE_DISH, dishColumns, null, null, null, null, null);
 
         //Iterates through the table returning each dish matching the resturant ID
+        cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Dish dish = cursorToDish(cursor);
             if(restaurant_id == dish.getRestaurantId()){
@@ -160,12 +160,12 @@ class DataAccessObject {
     private Dish cursorToDish(Cursor cursor){
 
         return new Dish(
-            cursor.getLong(0),
-            cursor.getLong(1),
-            cursor.getString(2),
+            cursor.getLong(4),
+            cursor.getLong(5),
+            cursor.getString(6),
+            cursor.getString(0),
             cursor.getString(3),
-            cursor.getString(4),
-            cursor.getFloat(5)
+            cursor.getFloat(2)
         );
     }
 

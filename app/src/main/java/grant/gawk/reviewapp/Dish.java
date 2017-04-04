@@ -1,8 +1,5 @@
 package grant.gawk.reviewapp;
 
-/**
- * Created by Grant on 2/18/2017.
- */
 
 public class Dish {
 
@@ -14,14 +11,18 @@ public class Dish {
     private String date;
     private float rating;
     private int favorite = 0;
+    private String picture;
 
-    public Dish(long id, long rid, String n, String d, String c, float r) {
-        _id = id;
-        restaurant_id = rid;
-        name = n;
-        comments = c;
-        rating = r;
-        date = d;
+
+
+    public Dish(long id, long rid, String name, String date, String comments, float rating) {
+        this._id = id;
+        this.restaurant_id = rid;
+        this.name = name;
+        this.date = date;
+        this.comments = comments;
+        this.rating = rating;
+
     }
 
     public String getName()
@@ -29,22 +30,22 @@ public class Dish {
         return name;
     }
 
-    public String getDate()
+    String getDate()
     {
         return date;
     }
 
-    public float getRating()
+    float getRating()
     {
         return rating;
     }
 
-    public String getComments()
+    String getComments()
     {
         return comments;
     }
 
-    public int isFavorite() {
+    int isFavorite() {
         return favorite;
     }
 
@@ -60,8 +61,21 @@ public class Dish {
         return _id;
     }
 
-    public long getRestaurantId() {
+    long getRestaurantId() {
         return restaurant_id;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String toString(){
+
+        return this.getName();
     }
 
 

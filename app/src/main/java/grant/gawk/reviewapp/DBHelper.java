@@ -32,11 +32,12 @@ class DBHelper extends SQLiteOpenHelper {
 
     //Strings of the Database Name/Version
     private static final String DB_NAME = "DejaFood.db";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     //SQL String to create the Database
     private static final String RESTAURANT_CREATE = "create table "
-            + TABLE_RESTAURANT + "( " + RESTAURANT_ID + " integer primary key autoincrement, "
+            + TABLE_RESTAURANT + "( "
+            + RESTAURANT_ID + " integer primary key autoincrement, "
             + RESTAURANT_NAME + " text not null, "
             + RESTAURANT_CITY + " text not null, "
             + RESTAURANT_PICTURE + " text"
@@ -44,11 +45,12 @@ class DBHelper extends SQLiteOpenHelper {
 
     //SQL String to create the Database
     private static final String DISH_CREATE = "create table "
-            + TABLE_DISH + "( " + DISH_ID + " integer primary key autoincrement, "
+            + TABLE_DISH + "( "
+            + DISH_ID + " integer primary key autoincrement, "
             + DISH_RESTAURANT_ID + " integer not null, "
             + DISH_NAME + " text not null, "
-            + DISH_COMMENT + " text, "
             + DISH_DATE + " date not null, "
+            + DISH_COMMENT + " text, "
             + DISH_RATING + " text not null, "
             + DISH_PICTURE + " text"
             + ");";

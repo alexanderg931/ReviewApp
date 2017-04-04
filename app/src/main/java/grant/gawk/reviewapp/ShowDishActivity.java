@@ -40,15 +40,5 @@ public class ShowDishActivity extends AppCompatActivity {
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
     }
 
-    private void dummyData() {
-        String dateToUse = "3/1/2017";
-        String nameToUse = "Carne Asada";
-        String commentsToUse = "Delicious";
-        float ratingToUse = 5f;
 
-        dateWidget.setText(dateToUse);
-        nameWidget.setText(nameToUse);
-        commentsWidget.setText(commentsToUse);
-        ratingWidget.setRating(ratingToUse);
-    }
 }

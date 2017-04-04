@@ -16,7 +16,10 @@ public class AddDishActivity extends AppCompatActivity {
     EditText dateWidget;
     RatingBar dishRatingWidget;
     String restaurantName;
+    Long restaurantID;
     Context appContext;
+    DataAccessObject dao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,11 @@ public class AddDishActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_dish);
         setTitle("Add a Dish");
         appContext = this.getApplicationContext();
+        dao = new DataAccessObject(appContext);
+        dao.open();
         Intent intent = getIntent();
         restaurantName = intent.getStringExtra("restaurantName");
+        restaurantID = intent.getLongExtra("restaurantID", 0L);
 
         dishNameWidget = (EditText) findViewById(R.id.dishNameEntry);
         commentsWidget = (EditText) findViewById(R.id.commentTextBox);
@@ -38,6 +44,18 @@ public class AddDishActivity extends AppCompatActivity {
         dateWidget.setText(date);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dao.open();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
+    }
+
     public void collectData(View view)
     {
         //collected Data
@@ -46,17 +64,12 @@ public class AddDishActivity extends AppCompatActivity {
         String date = dateWidget.getText().toString();
         float dishRating = dishRatingWidget.getRating();
 
-        // create new Dish object to hold the data
-        //Dish newDish = new Dish(dishName, date, comments, dishRating);
+        dao.insertDish(restaurantID, dishName, date, comments, dishRating, null);
 
-        /* portion to interface FileHandler should go here. Namely, feed it the new Dish, so to speak */
-        //FileHandler files = new FileHandler(appContext);
-        //files.writeDish(restaurantName, newDish);
-        /* End File Handler Block */
-
-        Intent transition = new Intent(this, DishListActivity.class);
-        transition.putExtra("restaurantName", restaurantName);
-        startActivity(transition);
+        Intent intent = new Intent(this, DishListActivity.class);
+        intent.putExtra("restaurantName", restaurantName);
+        intent.putExtra("restaurantID", restaurantID);
+        startActivity(intent);
 
     }
 }
