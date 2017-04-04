@@ -1,5 +1,6 @@
 package grant.gawk.reviewapp;
 
+
 /**
  * <p>
  *     The Dish object used to store data related to the individual dishes for a restaurant.
@@ -15,6 +16,10 @@ public class Dish {
      *     The String name of the dish
      * </p>
      */
+
+
+    private long _id;
+    private long restaurant_id;
     private String name;
 
     /**
@@ -44,22 +49,18 @@ public class Dish {
      * </p>
      */
     private int favorite = 0;
+    private String picture;
 
-    /**
-     * <p>
-     *     Public constructor to initialize the attributes in the Dish object. Note that favorite is initialized to 0 on its own,
-     *      without use of the constructor.
-     * </p>
-     * @param n The name of the dish
-     * @param d The date the dish was ordered
-     * @param c The user's comments about the dish
-     * @param r The 0.0 to 5.0 rating of the dish
-     */
-    public Dish(String n, String d, String c, float r) {
-        name = n;
-        comments = c;
-        rating = r;
-        date = d;
+
+
+    public Dish(long id, long rid, String name, String date, String comments, float rating) {
+        this._id = id;
+        this.restaurant_id = rid;
+        this.name = name;
+        this.date = date;
+        this.comments = comments;
+        this.rating = rating;
+
     }
 
     /**
@@ -132,6 +133,27 @@ public class Dish {
      */
     public void unFavorite() {
         this.favorite = 0;
+    }
+
+    public long getId() {
+        return _id;
+    }
+
+    long getRestaurantId() {
+        return restaurant_id;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String toString(){
+
+        return this.getName();
     }
 
 

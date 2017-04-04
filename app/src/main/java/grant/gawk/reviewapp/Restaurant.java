@@ -1,30 +1,8 @@
 package grant.gawk.reviewapp;
-import android.graphics.Bitmap;
-
-/**
- * <p>
- *      A data object used to store restaurant data, which includes a picture, the name, and the city.
- *      Accompanying dish objects are not stored directly with the Restaurant.
- * </p>
- * @author Khoa
- * @version 1.0
- * @since 1.0
- * @see Dish
- */
 public class Restaurant
 {
-    /**
-     * <p>
-     *     A picture of the restaurant.
-     * </p>
-     */
-    private Bitmap Picture;
-
-    /**
-     * <p>
-     *     The name of the restaurant.
-     * </p>
-     */
+    private long _id;
+    private String Picture;
     private String Name;
 
     /**
@@ -34,33 +12,19 @@ public class Restaurant
      */
     private String City;
 
-    /**
-     * A basic public constructor to initialize the Picture, Name, and City attributes of the class.
-     * @param picture   A picture of the restaurant.
-     * @param name      The name of the restaurant.
-     * @param city      The city the restaurant is in.
-     */
-    public Restaurant(Bitmap picture, String name, String city){
+
+
+    Restaurant(long id, String picture, String name, String city){
+        _id = id;
         Picture = picture;
         Name = name;
         City = city;
     }
 
-    /**
-     * Changes the initialized value of the restaurant's Picture attribute.
-     * @param picture   A picture to replace the current picture attribute.
-     */
-    public void setPicture(Bitmap picture) {
+    public void setPicture(String picture) {
         Picture = picture;
     }
-
-    /**
-     * <p>
-     *     Gets the restaurant's picture.
-     * </p>
-     * @return The restaurant's picture.
-     */
-    public Bitmap getPicture() {
+    public String getPicture() {
         return Picture;
     }
 
@@ -102,6 +66,16 @@ public class Restaurant
      */
     public void setCity(String city) {
         City = city;
+    }
+
+    public long getId() {
+        return _id;
+    }
+
+    @Override
+    public String toString(){
+
+        return this.getName();
     }
 }
 

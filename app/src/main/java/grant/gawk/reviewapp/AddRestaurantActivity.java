@@ -1,14 +1,14 @@
 package grant.gawk.reviewapp;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
  * @author Khoa
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  * @see RestaurantListActivity
  */
 
@@ -55,6 +54,7 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
      * </p>
      */
     ImageView getImage;
+    DataAccessObject dao;
 
     /**
      * <p>
@@ -86,6 +86,20 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         appContext = this.getApplicationContext();
         cityName = (EditText) findViewById(R.id.cityName);
         restName = (EditText) findViewById(R.id.restName);
+        dao = new DataAccessObject(appContext);
+        dao.open();
+    }
+
+    @Override
+    protected void onResume(){
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
     }
 
     /**
@@ -100,7 +114,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
      * Please note, that due to issues with obtaining the URI as a non-null reference from the gallery, the Restaurant object is created with a
      * null picture value in its constructor, so fixes to the image taking will need to be followed by a change of this null to the Bitmap object.
      * @param v     The current View.
-     * @see FileHandler
      * @see RestaurantListActivity
      */
     @Override
@@ -113,10 +126,10 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
                 break;
             case R.id.btnSubmit:
                 String city = cityName.getText().toString();
-                String restaurantName = restName.getText().toString();
-                FileHandler files = new FileHandler(appContext);
-                Restaurant restaurant = new Restaurant(null, restaurantName, city);
-                files.writeRestaurant(restaurant);
+                String restaurant = restName.getText().toString();
+                String picturePath = "No Picture"; //Temporary until we figure out how to store images
+
+                dao.insertRestaurant(picturePath, restaurant, city);
 
                 Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
                 startActivity(returnToRestaurantList);

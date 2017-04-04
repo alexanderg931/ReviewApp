@@ -1,8 +1,11 @@
 package grant.gawk.reviewapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,8 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.util.ArrayList;
-import android.content.Context;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,9 +24,9 @@ import android.content.Context;
  * @author Anthony, Warren
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  */
 public class DishListActivity extends AppCompatActivity {
+    private static final String TAG = "DishList";
     /**
      * <p>
      *     Attribute to hold the ListView object from the activity
@@ -37,20 +40,11 @@ public class DishListActivity extends AppCompatActivity {
      * </p>
      */
     String restaurantName;
-
-    /**
-     * <p>
-     *     Array list to hold all the dishes for this particular restaurant
-     * </p>
-     */
-    ArrayList<Dish> dishes;
-
-    /**
-     * <p>
-     *     The application context
-     * </p>
-     */
+    Long restaurantId;
+    ArrayAdapter<Dish> adapter;
     Context appContext;
+    DataAccessObject dao;
+
 
     /**
      * <p>
@@ -70,12 +64,16 @@ public class DishListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
         appContext = getApplicationContext();
+        dao = new DataAccessObject(appContext);
+        dao.open();
 
         //Sets Restaurant's name to toolbar title
         Intent intent = getIntent();
         Log.d("dishCLick", intent.getStringExtra("restaurantName"));
         setTitle(intent.getStringExtra("restaurantName"));
         restaurantName = intent.getStringExtra("restaurantName");
+        restaurantId = intent.getLongExtra("restaurantId", 0L);
+
 
         dishList = (ListView) findViewById(R.id.dish_list);
 
@@ -91,7 +89,14 @@ public class DishListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        dao.open();
         populateList();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
     }
 
     /**
@@ -105,28 +110,69 @@ public class DishListActivity extends AppCompatActivity {
      *     Makes a call to getData() to refresh the list.
      * </p>
      * @see ShowDishActivity
-     * @see DishListActivity#getData()
      * @see DishListActivity#showDishForm
      */
     private void populateList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, getData());
-
+        //get list of restaurants from Database and adapt them to list view
+        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantId);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishes);
         dishList.setAdapter(adapter);
 
+        //onClick
         dishList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
-                Log.d("onClick" , parent.toString());
-                Log.d("onClick" , v.toString());
-                Log.d("onClick" , Integer.toString(position));
-                Log.d("onClick" , Long.toString(id));
+                Log.d("Dish List Item" , dishes.get((int)id).toString());
 
-                getData(); //no assignment, it's just to refresh the list
 
-                Dish dish = dishes.get((int)id);
-                showDishForm(v, dish);
+                Dish clickedDish = dishes.get((int)id);
+                adapter.notifyDataSetChanged();
+                showDishForm(clickedDish);
             }
         });
+
+
+        //call when item is Long Clicked
+        dishList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView parent, View v, int position, final long id){
+                Log.d(TAG, "Long Clicked");
+                AlertDialog.Builder builder = new AlertDialog.Builder(DishListActivity.this);
+                builder.setMessage("Delete Entry?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked delete");
+                        if (dishList.getCount() > 0) {
+                            Dish dish = adapter.getItem((int) id);
+                            dao.deleteDish(dish);
+                            adapter.remove(dish);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked Cancel");
+                        //do nothing
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+                return true;
+            }
+        });
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -155,16 +201,9 @@ public class DishListActivity extends AppCompatActivity {
                 new SettingsFragment()).addToBackStack(null).commit();
     }
 
-    /**
-     * <p>
-     *      The method to bring out the ShowDishActivity. Uses an intent and puts all the attributes
-     *      of the dish object as extras to be unwrapped by the ShowDishActivity
-     * </p>
-     * @param View  The DishListActivity's view
-     * @param dish  The Dish object to be presented on the next form
-     * @see ShowDishActivity
-     */
-    private void showDishForm(View View, Dish dish){
+
+    //called to move to Restaurant Data form.
+    private void showDishForm(Dish dish){
 
         Intent intent = new Intent(this, ShowDishActivity.class);
         intent.putExtra("dishName", dish.getName());
@@ -185,37 +224,9 @@ public class DishListActivity extends AppCompatActivity {
     public void addDish(View view) {
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
+        intent.putExtra("restaurantId", restaurantId);
         startActivity(intent);
     }
 
-    /**
-     * <p>
-     *      Fetches the dishes from file in FileHandler, and fetches the names of each dish from the
-     *      ArrayList of dishes. Also makes a call to DishSort to sort the dishes.
-     * </p>
-     *
-     * <p>
-     *     <b>Note:</b> Updates the dishes attribute
-     * </p>
-     * @return The name of each dish in an ArrayList of Strings
-     * @see DishSort
-     * @see FileHandler#loadDishes(String)
-     * @see FileHandler#getDishes()
-     */
-    public ArrayList<String> getData() {
-        FileHandler files = new FileHandler(appContext);
-        files.loadDishes(restaurantName);
-        dishes = files.getDishes();
-        dishes = DishSort.sort(dishes, appContext);
-        ArrayList<String> dishNames = new ArrayList<>();
-
-        if (dishes != null) {
-            for (int x = 0; x < dishes.size(); x++) {
-                dishNames.add(dishes.get(x).getName());
-            }
-        }
-        return dishNames;
-
-    }
 
 }

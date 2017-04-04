@@ -79,4 +79,6 @@ public class ShowDishActivity extends AppCompatActivity {
         commentsWidget.setText(commentsToUse);
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
     }
+
+
 }

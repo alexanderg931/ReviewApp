@@ -1,18 +1,17 @@
 package grant.gawk.reviewapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Context;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -21,7 +20,6 @@ import java.util.ArrayList;
  * @author Anthony
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  * @see AddRestaurantActivity
  * @see ShowDishActivity
  */
@@ -33,20 +31,10 @@ public class RestaurantListActivity extends AppCompatActivity {
      * </p>
      */
     ListView restaurantList;
-
-    /**
-     * <p>
-     *     An ArrayAdapter used for something. Anthony needs to explain this.
-     * </p>
-     */
-    ArrayAdapter adapter;
-
-    /**
-     * <p>
-     *     The current context of the application. Used for File Handling purposes
-     * </p>
-     */
+    ArrayAdapter<Restaurant> adapter;
     Context appContext;
+    private static final String TAG = "Restaurant List";
+    private DataAccessObject dao;
 
     /**
      * <p>
@@ -62,8 +50,22 @@ public class RestaurantListActivity extends AppCompatActivity {
         //get reference to restaurant list and populate it.
         restaurantList = (ListView) findViewById(R.id.restaurant_list);
         appContext = this.getApplicationContext();
+        dao = new DataAccessObject(appContext);
+        dao.open();
         populateList();
 
+    }
+
+    @Override
+    protected void onResume(){
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
     }
 
 
@@ -94,50 +96,69 @@ public class RestaurantListActivity extends AppCompatActivity {
      *     Once it is processed by getData(), showRestaurantForm() is called to open the list of dishes for
      *     that restaurant.
      * </p>
-     * @see RestaurantListActivity#getData()
-     * @see RestaurantListActivity#showRestaurantForm(View, String)
      */
     private void populateList(){
-        adapter = new ArrayAdapter<>(this,
-                //android.R.layout.simple_list_item_1, RestaurantData.getData(this.getApplicationContext())); //future
-                android.R.layout.simple_list_item_1, getData());
-
-        setTitle("My Restaurants");
+        //get list of restaurants from Database and adapt them to list view
+        final List<Restaurant> restaurants = dao.getAllRestaurants();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, restaurants);
         restaurantList.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
+
+        //call when List item is clicked
         restaurantList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
-                Log.d("onClick" , parent.toString());
-                Log.d("onClick" , v.toString());
-                Log.d("onClick" , Integer.toString(position));
-                Log.d("onClick" , Long.toString(id));
-                Log.d("onClick" , getData().get((int)id));
+                Log.d("Restaurant List Item" , restaurants.get((int)id).toString());
 
-                String restaurantName = getData().get((int)id); //get name of selected restaurant
+                Restaurant clickedRestaurant = adapter.getItem((int) id);
                 adapter.notifyDataSetChanged();
-                showRestaurantForm(v, restaurantName);
-
+                showRestaurantForm(clickedRestaurant); //move to Dish list
             }
         });
 
+        //call when item is Long Clicked
+        restaurantList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView parent, View v, int position, final long id){
+                Log.d(TAG, "Long Clicked");
+                AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantListActivity.this);
+                builder.setMessage("Delete Entry?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked delete");
+                        if (restaurantList.getCount() > 0) {
+                            Restaurant rest = adapter.getItem((int) id);
+                            dao.deleteRest(rest);
+                            adapter.remove(rest);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "User clicked Cancel");
+                        //do nothing
+                    }
+                });
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+                return true;
+            }
+        });
     }
 
-    /**
-     * <p>
-     *      Creates an intent and sends the name of the restaurant as an extra. Then opens the
-     *      DishListActivity.
-     * </p>
-     * @param View              The active view of the program.
-     * @param restaurantName    The name of the restaurant.
-     * @see DishListActivity
-     */
-    private void showRestaurantForm(View View,  String restaurantName){
+    //called to move to List of Dishes
+    private void showRestaurantForm(Restaurant restaurant){
         Intent intent = new Intent(this, DishListActivity.class);
-        intent.putExtra("restaurantName", restaurantName);
+        intent.putExtra("restaurantName", restaurant.getName());
+        intent.putExtra("restaurantId", restaurant.getId());
+
         startActivity(intent);
     }
 
+    //called to move to add Restaurant Form
     /**
      * <p>
      *     Opens up the AddRestaurantActivity so that a new restaurant can be added.
@@ -151,25 +172,6 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * <p>
-     *     Uses the FileHandler to fetch the restaurants ArrayList and then extracts the String
-     *     name from each one, and places them into a new ArrayList of Strings.
-     * </p>
-     * @return  An ArrayList of Strings containing the names of the restaurant.
-     * @see FileHandler
-     */
-    public ArrayList<String> getData() {
-        FileHandler files = new FileHandler(appContext);
-        ArrayList<String> restaurantNames = new ArrayList<>();
-        ArrayList<Restaurant> restaurants = files.getRestaurants();
 
-        if (restaurants != null) {
-            for (int x = 0; x < restaurants.size(); x++) {
-                restaurantNames.add(restaurants.get(x).getName());
-            }
-        }
-        return restaurantNames;
-    }
 
 }
