@@ -20,7 +20,6 @@ import java.util.List;
  * @author Anthony
  * @version 1.0
  * @since 1.0
- * @see FileHandler
  * @see AddRestaurantActivity
  * @see ShowDishActivity
  */
@@ -97,8 +96,6 @@ public class RestaurantListActivity extends AppCompatActivity {
      *     Once it is processed by getData(), showRestaurantForm() is called to open the list of dishes for
      *     that restaurant.
      * </p>
-     * @see RestaurantListActivity#getData()
-     * @see RestaurantListActivity#showRestaurantForm(View, String)
      */
     private void populateList(){
         //get list of restaurants from Database and adapt them to list view
@@ -154,16 +151,6 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     //called to move to List of Dishes
     private void showRestaurantForm(Restaurant restaurant){
-    /**
-     * <p>
-     *      Creates an intent and sends the name of the restaurant as an extra. Then opens the
-     *      DishListActivity.
-     * </p>
-     * @param View              The active view of the program.
-     * @param restaurantName    The name of the restaurant.
-     * @see DishListActivity
-     */
-    private void showRestaurantForm(View View,  String restaurantName){
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurant.getName());
         intent.putExtra("restaurantId", restaurant.getId());
@@ -172,7 +159,6 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     //called to move to add Restaurant Form
-    public void addRestaurant(View v){
     /**
      * <p>
      *     Opens up the AddRestaurantActivity so that a new restaurant can be added.
