@@ -1,8 +1,9 @@
 package grant.gawk.reviewapp;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,26 +12,33 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.util.ArrayList;
-import android.content.Context;
+
+import java.util.List;
 
 public class DishListActivity extends AppCompatActivity {
     ListView dishList;
     String restaurantName;
-    ArrayList<Dish> dishes;
+    Long restaurantID;
+    ArrayAdapter<Dish> adapter;
     Context appContext;
+    DataAccessObject dao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
         appContext = getApplicationContext();
+        dao = new DataAccessObject(appContext);
+        dao.open();
 
         //Sets Restaurant's name to toolbar title
         Intent intent = getIntent();
         Log.d("dishCLick", intent.getStringExtra("restaurantName"));
         setTitle(intent.getStringExtra("restaurantName"));
         restaurantName = intent.getStringExtra("restaurantName");
+        restaurantID = intent.getLongExtra("restaurantID", 0L);
+
 
         dishList = (ListView) findViewById(R.id.dish_list);
 
@@ -41,26 +49,32 @@ public class DishListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        dao.open();
         populateList();
     }
 
+    @Override
+    protected void onPause(){
+        dao.close();
+        super.onPause();
+    }
+
     private void populateList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, getData());
+        //get list of restaurants from Database and adapt them to list view
+        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantID);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishes);
+
 
         dishList.setAdapter(adapter);
 
         dishList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
-                Log.d("onClick" , parent.toString());
-                Log.d("onClick" , v.toString());
-                Log.d("onClick" , Integer.toString(position));
-                Log.d("onClick" , Long.toString(id));
+                Log.d("Dish List Item" , dishes.get((int)id).toString());
 
-                getData(); //no assignment, it's just to refresh the list
 
-                Dish dish = dishes.get((int)id);
-                showDishForm(v, dish);
+                Dish clickedDish = dishes.get((int)id);
+                adapter.notifyDataSetChanged();
+                showDishForm(clickedDish);
             }
         });
 
@@ -83,7 +97,7 @@ public class DishListActivity extends AppCompatActivity {
 
 
     //called to move to Restaurant Data form.
-    private void showDishForm(View View, Dish dish){
+    private void showDishForm(Dish dish){
 
         Intent intent = new Intent(this, ShowDishActivity.class);
         intent.putExtra("dishName", dish.getName());
@@ -100,20 +114,5 @@ public class DishListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public ArrayList<String> getData() {
-        FileHandler files = new FileHandler(appContext);
-        files.loadDishes(restaurantName);
-        dishes = files.getDishes();
-        dishes = DishSort.sort(dishes, appContext);
-        ArrayList<String> dishNames = new ArrayList<>();
-
-        if (dishes != null) {
-            for (int x = 0; x < dishes.size(); x++) {
-                dishNames.add(dishes.get(x).getName());
-            }
-        }
-        return dishNames;
-
-    }
 
 }

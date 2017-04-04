@@ -77,10 +77,8 @@ public class RestaurantListActivity extends AppCompatActivity {
                 Log.d("Restaurant List Item" , restaurants.get((int)id).toString());
 
                 Restaurant clickedRestaurant = adapter.getItem((int) id);
-                assert clickedRestaurant != null;
-                String restaurantName = clickedRestaurant.getName(); //get name of selected restaurant
                 adapter.notifyDataSetChanged();
-                showRestaurantForm(restaurantName); //move to Dish list
+                showRestaurantForm(clickedRestaurant); //move to Dish list
             }
         });
 
@@ -120,9 +118,11 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
     //called to move to List of Dishes
-    private void showRestaurantForm(String restaurantName){
+    private void showRestaurantForm(Restaurant restaurant){
         Intent intent = new Intent(this, DishListActivity.class);
-        intent.putExtra("restaurantName", restaurantName);
+        intent.putExtra("restaurantName", restaurant.getName());
+        intent.putExtra("restaurantId", restaurant.getId());
+
         startActivity(intent);
     }
 
