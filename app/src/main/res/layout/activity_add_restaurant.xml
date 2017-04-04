@@ -80,8 +80,7 @@
         android:layout_below="@+id/getImage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:id="@+id/takePicture"
-        android:onClick="takePicture"/>
+        android:id="@+id/takePicture" />
 
     <ImageView
         android:layout_width="150dp"

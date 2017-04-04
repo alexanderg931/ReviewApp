@@ -13,13 +13,37 @@ import android.widget.ListView;
 import android.content.Context;
 import java.util.List;
 
+/**
+ * <p>
+ *     The activity used to list Restaurants.
+ * </p>
+ * @author Anthony
+ * @version 1.0
+ * @since 1.0
+ * @see FileHandler
+ * @see AddRestaurantActivity
+ * @see ShowDishActivity
+ */
 public class RestaurantListActivity extends AppCompatActivity {
+
+    /**
+     * <p>
+     *     The ListView we will be putting restaurants in.
+     * </p>
+     */
     ListView restaurantList;
     ArrayAdapter<Restaurant> adapter;
     Context appContext;
     private static final String TAG = "Restaurant List";
     private DataAccessObject dao;
 
+    /**
+     * <p>
+     *     Initializes the ListView attribute for the restaurant, initializes the appContext attribute,
+     *     and calls populateList() to fill the list with contents.
+     * </p>
+     * @param savedInstanceState The Bundle object passed by the calling function
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +88,18 @@ public class RestaurantListActivity extends AppCompatActivity {
 //    }
 
 
-
+    /**
+     * <p>
+     *     The method used to populate the list of restaurants. Uses an onclick listener to
+     *     record when the user interacts with a list element, and sends the index to getData().
+     *     <br />
+     *     <br />
+     *     Once it is processed by getData(), showRestaurantForm() is called to open the list of dishes for
+     *     that restaurant.
+     * </p>
+     * @see RestaurantListActivity#getData()
+     * @see RestaurantListActivity#showRestaurantForm(View, String)
+     */
     private void populateList(){
         //get list of restaurants from Database and adapt them to list view
         final List<Restaurant> restaurants = dao.getAllRestaurants();
@@ -119,6 +154,16 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     //called to move to List of Dishes
     private void showRestaurantForm(Restaurant restaurant){
+    /**
+     * <p>
+     *      Creates an intent and sends the name of the restaurant as an extra. Then opens the
+     *      DishListActivity.
+     * </p>
+     * @param View              The active view of the program.
+     * @param restaurantName    The name of the restaurant.
+     * @see DishListActivity
+     */
+    private void showRestaurantForm(View View,  String restaurantName){
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurant.getName());
         intent.putExtra("restaurantId", restaurant.getId());
@@ -128,6 +173,14 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     //called to move to add Restaurant Form
     public void addRestaurant(View v){
+    /**
+     * <p>
+     *     Opens up the AddRestaurantActivity so that a new restaurant can be added.
+     * </p>
+     * @param view  The active view of the program.
+     * @see AddRestaurantActivity
+     */
+    public void addRestaurant(View view){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
         startActivity(intent);
 

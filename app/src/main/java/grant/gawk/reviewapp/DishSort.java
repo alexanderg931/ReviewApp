@@ -12,13 +12,35 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
-
+/**
+ * <p>
+ *     Class used to sort Dishes by varying criteria.
+ * </p>
+ * @author Anthony
+ * @version 1.0
+ * @since 1.0
+ * @see Dish
+ */
 public class DishSort {
 
+    /**
+     * Private constructor to prevent creation of DishSort objects. The sorts included are linked below.
+     */
     private DishSort(){
-        //Prevents creation of sort objects
     }
 
+    /**
+     * <p>
+     *     Chooses the algorithm to use to sort the list by.
+     * </p>
+     * @param myList    The ArrayList of Dishes
+     * @param context   The current application context
+     * @return  A sorted list
+     * @see DishSort#azSort(ArrayList)
+     * @see DishSort#zaSort(ArrayList)
+     * @see DishSort#favoriteSort(ArrayList)
+     * @see DishSort#recentnessSort(ArrayList)
+     */
     public static ArrayList sort(ArrayList myList, Context context){
 
         String option = PreferenceManager.getDefaultSharedPreferences(context)
@@ -52,6 +74,14 @@ public class DishSort {
         return myList;
     }
 
+    /**
+     * <p>
+     *     Sort from a to z. Uses Collections.sort and Comparator to
+     *     alphabetize the list.
+     * </p>
+     * @param myList    The ArrayList of Dish objects.
+     * @return  The ArrayList, sorted from A to Z.
+     */
     public static ArrayList azSort(ArrayList myList){
         Collections.sort(myList, new Comparator<Dish>() {
             @Override
@@ -65,6 +95,13 @@ public class DishSort {
         return myList;
     }
 
+    /**
+     * <p>
+     *     Sort from z to a. Uses Collections.sort and Comparator to accomplish this.
+     * </p>
+     * @param myList    The ArrayList of Dish objects.
+     * @return  The ArrayList, sorted from z to a.
+     */
     public static ArrayList zaSort(ArrayList myList){
         Collections.sort(myList, new Comparator<Dish>() {
             @Override
@@ -78,6 +115,14 @@ public class DishSort {
         return myList;
     }
 
+    /**
+     * <p>
+     *     Sorts the list by whether they are favorites or not. Uses
+     *     Collections.sort and Comparator to accomplish this.
+     * </p>
+     * @param myList    The ArrayList of Dish objects.
+     * @return  The ArrayList, sorted by whether or not they are favorites.
+     */
     public static ArrayList favoriteSort(ArrayList myList){
         Collections.sort(myList, new Comparator<Dish>() {
             @Override
@@ -91,6 +136,16 @@ public class DishSort {
 
         return myList;
     }
+
+    /**
+     * <p>
+     *     Sorts the list by the recentness of their submission date. Uses Collections.sort and Comparator,
+     *      but also SimpleDateFormat to parse the date string into a Date object to be compared. Also catches
+     *      ParseExceptions from SimpleDateFormat if the parse fails.
+     * </p>
+     * @param myList    The ArrayList of Dish objects.
+     * @return  The ArrayList, sorted by recentness.
+     */
     public static ArrayList recentnessSort(ArrayList myList){
         Collections.sort(myList, new Comparator<Dish>() {
             @Override
