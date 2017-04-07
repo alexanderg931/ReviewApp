@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_syncConnectionTypes_entries">
-        <item>A-Z</item>
-        <item>Z-A</item>
-        <item>Recentness</item></string-array>
-    <string-array name="pref_syncConnectionTypes_values">
-        <item>A-Z</item>
-        <item>Z-A</item>
-        <item>Recentness</item></string-array>
+    <string-array name="pref_sortOptions">
+        <item>Ascending</item>
+        <item>Descending</item>
+        <item>Disable</item></string-array>
+
+    <string-array name="pref_restaurant_name_values">
+        <item>name asc</item>
+        <item>name desc</item>
+        <item> </item></string-array>
+
+    <string-array name="pref_dish_name_values">
+        <item>name asc,</item>
+        <item>name desc,</item>
+        <item> </item></string-array>
+
+    <string-array name="pref_dish_date_values">
+        <item>date asc,</item>
+        <item>date desc,</item>
+        <item> </item></string-array>
+
+    <string-array name="pref_dish_favorite_values">
+        <item>favorite asc,</item>
+        <item>favorite desc,</item>
+        <item> </item></string-array>
+
+    <string-array name="pref_dish_rating_values">
+        <item>rating asc</item>
+        <item>rating desc</item>
+        <item> </item></string-array>
+
 </resources>

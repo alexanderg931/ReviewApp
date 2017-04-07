@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
 
-    <ListPreference
-        android:key="pref_sortOption"
-        android:title="@string/pref_sortOption"
-        android:dialogTitle="@string/pref_syncConnectionType"
-        android:entries="@array/pref_syncConnectionTypes_entries"
-        android:entryValues="@array/pref_syncConnectionTypes_values"
-        android:defaultValue="@string/pref_syncConnectionTypes_default" />
+
+
+    <PreferenceCategory
+        android:title = "@string/pref_restaurants"
+        android:key = "pref_restaurants">
+        <ListPreference
+            android:key="pref_restaurant_name"
+            android:title="@string/pref_restaurant_name"
+            android:dialogTitle="@string/pref_restaurant_name"
+            android:entries="@array/pref_sortOptions"
+            android:entryValues="@array/pref_restaurant_name_values"
+            android:defaultValue="@string/pref_default" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title = "@string/pref_dishes"
+        android:key = "pref_dishes">
+
+        <ListPreference
+            android:key="pref_dish_name"
+            android:title="@string/pref_dish_name"
+            android:dialogTitle="@string/pref_dish_name"
+            android:entries="@array/pref_sortOptions"
+            android:entryValues="@array/pref_dish_name_values"
+            android:defaultValue="@string/pref_default" />
+        <ListPreference
+            android:key="pref_dish_date"
+            android:title="@string/pref_dish_date"
+            android:dialogTitle="@string/pref_dish_date"
+            android:entries="@array/pref_sortOptions"
+            android:entryValues="@array/pref_dish_date_values"
+            android:defaultValue="@string/pref_default" />
+        <ListPreference
+            android:key="pref_dish_favorite"
+            android:title="@string/pref_dish_favorite"
+            android:dialogTitle="@string/pref_dish_favorite"
+            android:entries="@array/pref_sortOptions"
+            android:entryValues="@array/pref_dish_favorite_values"
+            android:defaultValue="@string/pref_default" />
+        <ListPreference
+            android:key="pref_dish_rating"
+            android:title="@string/pref_dish_rating"
+            android:dialogTitle="@string/pref_dish_rating"
+            android:entries="@array/pref_sortOptions"
+            android:entryValues="@array/pref_dish_rating_values"
+            android:defaultValue="@string/pref_default" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -2,8 +2,13 @@
     <string name="app_name">DejaFood</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
-    <string name="pref_sortOption">Sort</string>
-    <string name="pref_syncConnectionType">Order by...</string>
-    <string name="pref_syncConnectionTypes_default"><item>A-Z</item></string>
+    <string name="pref_restaurants">Sort Restaurants by</string>
+    <string name="pref_dishes">Sort Dishes by</string>
+    <string name="pref_restaurant_name">Name</string>
+    <string name="pref_dish_name">Name</string>
+    <string name="pref_dish_date">Date</string>
+    <string name="pref_dish_favorite">Favorite</string>
+    <string name="pref_dish_rating">Rating</string>
+    <string name="pref_default"> </string>
 
 </resources>

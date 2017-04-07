@@ -61,8 +61,8 @@ public class SettingsFragment extends PreferenceFragment {
     public void onDestroyView(){
         super.onDestroyView();
         Log.d(TAG, "destroyed");
-        DishListActivity dla = (DishListActivity) getActivity();
-        dla.onResume();
+        //repopulates list by calling onResume method during recreate
+        getActivity().recreate();
     }
 
 }
