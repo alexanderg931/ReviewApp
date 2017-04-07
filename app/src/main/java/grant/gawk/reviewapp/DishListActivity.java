@@ -25,7 +25,7 @@ import java.util.List;
  * @version 1.0
  * @since 1.0
  */
-public class DishListActivity extends AppCompatActivity {
+public class DishListActivity extends AppCompatActivity{
     private static final String TAG = "DishList";
     /**
      * <p>
@@ -60,7 +60,7 @@ public class DishListActivity extends AppCompatActivity {
      * @see DishListActivity#populateList()
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
         appContext = getApplicationContext();
@@ -89,6 +89,7 @@ public class DishListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "Resuming Dish list");
         dao.open();
         populateList();
     }
@@ -114,7 +115,7 @@ public class DishListActivity extends AppCompatActivity {
      */
     private void populateList() {
         //get list of restaurants from Database and adapt them to list view
-        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantId);
+        final List<Dish> dishes = dao.getDishesFromRestaurant(restaurantId, appContext);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dishes);
         dishList.setAdapter(adapter);
 
@@ -164,16 +165,6 @@ public class DishListActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
-
-
-
-
-
-
-
     }
 
     /**
@@ -199,7 +190,9 @@ public class DishListActivity extends AppCompatActivity {
     public void openSettings(MenuItem item) {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
+
     }
+
 
 
     //called to move to Restaurant Data form.
@@ -228,5 +221,10 @@ public class DishListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onPanelClosed(int featureId, Menu menu) {
+        super.onPanelClosed(featureId, menu);
+        Log.d(TAG, "im getting called");
 
+    }
 }

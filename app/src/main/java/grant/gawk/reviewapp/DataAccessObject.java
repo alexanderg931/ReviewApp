@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -136,19 +137,35 @@ class DataAccessObject {
     }
 
     //return a list of dishes from a specific restaurant
-    List<Dish> getDishesFromRestaurant(long restaurant_id){
+    List<Dish> getDishesFromRestaurant(long restaurant_id, Context context){
         List<Dish> dishes = new ArrayList<>();
+        String whereClause = "restaurant_id = " + restaurant_id;
+        String orderBy;
+
+        orderBy = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_dish_name", "");
+        orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_dish_date", ""));
+        orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_dish_favorite", ""));
+        orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_dish_rating", ""));
+
+        if (orderBy.length() < 5){
+            orderBy = "restaurant_id desc";
+        }
+        orderBy = orderBy.replaceAll(",$", "");
+        Log.d(TAG, orderBy);
+
 
         //creates a Cursor pointing to the Dish Table
-        Cursor cursor = db.query(DBHelper.TABLE_DISH, dishColumns, null, null, null, null, null);
+        Cursor cursor = db.query(DBHelper.TABLE_DISH, dishColumns, whereClause, null, null, null, orderBy);
 
         //Iterates through the table returning each dish matching the resturant ID
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Dish dish = cursorToDish(cursor);
-            if(restaurant_id == dish.getRestaurantId()){
-                dishes.add(dish);
-            }
+            dishes.add(dish);
             cursor.moveToNext();
         }
 
