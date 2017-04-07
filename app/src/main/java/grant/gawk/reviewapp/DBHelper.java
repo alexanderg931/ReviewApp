@@ -27,6 +27,7 @@ class DBHelper extends SQLiteOpenHelper {
     static final String DISH_RATING = "rating";
     static final String DISH_DATE = "date";
     static final String DISH_PICTURE = "picture";
+    static final String DISH_FAVORITE = "favorite";
 
 
 
@@ -35,7 +36,7 @@ class DBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 9;
 
     //SQL String to create the Database
-    private static final String RESTAURANT_CREATE = "create table "
+    public static final String RESTAURANT_CREATE = "create table "
             + TABLE_RESTAURANT + "( "
             + RESTAURANT_ID + " integer primary key autoincrement, "
             + RESTAURANT_NAME + " text not null, "
@@ -44,7 +45,7 @@ class DBHelper extends SQLiteOpenHelper {
             + ");";
 
     //SQL String to create the Database
-    private static final String DISH_CREATE = "create table "
+    public static final String DISH_CREATE = "create table "
             + TABLE_DISH + "( "
             + DISH_ID + " integer primary key autoincrement, "
             + DISH_RESTAURANT_ID + " integer not null, "
@@ -52,7 +53,8 @@ class DBHelper extends SQLiteOpenHelper {
             + DISH_DATE + " date not null, "
             + DISH_COMMENT + " text, "
             + DISH_RATING + " text not null, "
-            + DISH_PICTURE + " text"
+            + DISH_PICTURE + " text,"
+            + DISH_FAVORITE + " boolean"
             + ");";
 
     DBHelper(Context context){

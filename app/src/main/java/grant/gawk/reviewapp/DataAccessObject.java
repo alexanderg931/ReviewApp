@@ -18,21 +18,22 @@ class DataAccessObject {
     private SQLiteDatabase db;
     private DBHelper dbHelper;
 
-    private String[] restaurantColumns = {
+    final static public String[] restaurantColumns = {
             DBHelper.RESTAURANT_ID,
             DBHelper.RESTAURANT_NAME,
             DBHelper.RESTAURANT_CITY,
             DBHelper.RESTAURANT_PICTURE
             };
 
-    private String[] dishColumns = {
+    final static public String[] dishColumns = {
             DBHelper.DISH_DATE,
             DBHelper.DISH_PICTURE,
             DBHelper.DISH_RATING,
             DBHelper.DISH_COMMENT,
             DBHelper.DISH_ID,
             DBHelper.DISH_RESTAURANT_ID,
-            DBHelper.DISH_NAME
+            DBHelper.DISH_NAME,
+            DBHelper.DISH_FAVORITE
             };
 
      DataAccessObject(Context context){
