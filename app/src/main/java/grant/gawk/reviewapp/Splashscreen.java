@@ -16,7 +16,7 @@ public class Splashscreen extends Activity {
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-    /** Called when the activity is first created. */
+    /** Called when the activity is first created.*/
     Thread splashTread;
     @Override
     public void onCreate(Bundle savedInstanceState) {
