@@ -15,7 +15,6 @@ import static android.content.ContentValues.TAG;
  * @author Anthony
  * @version 1.0
  * @since 1.0
- * @see DishSort
  * @see DishListActivity
  */
 public class SettingsFragment extends PreferenceFragment {
