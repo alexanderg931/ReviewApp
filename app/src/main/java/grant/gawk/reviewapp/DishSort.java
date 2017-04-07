@@ -38,7 +38,6 @@ public class DishSort {
      * @return  A sorted list
      * @see DishSort#azSort(ArrayList)
      * @see DishSort#zaSort(ArrayList)
-     * @see DishSort#favoriteSort(ArrayList)
      * @see DishSort#recentnessSort(ArrayList)
      */
     public static ArrayList sort(ArrayList myList, Context context){
@@ -59,7 +58,7 @@ public class DishSort {
                 break;
             //Sort by Favorite
             case "Favorites":
-                myList = favoriteSort(myList);
+                //myList = favoriteSort(myList);
                 break;
             //Sort by Recentness
             case "Recentness":
@@ -115,27 +114,20 @@ public class DishSort {
         return myList;
     }
 
-    /**
-     * <p>
-     *     Sorts the list by whether they are favorites or not. Uses
-     *     Collections.sort and Comparator to accomplish this.
-     * </p>
-     * @param myList    The ArrayList of Dish objects.
-     * @return  The ArrayList, sorted by whether or not they are favorites.
-     */
-    public static ArrayList favoriteSort(ArrayList myList){
-        Collections.sort(myList, new Comparator<Dish>() {
-            @Override
-            public int compare(Dish dish1, Dish dish2)
-            {
 
-                return  dish1.isFavorite() - dish2.isFavorite();
-            }
-        });
-
-
-        return myList;
-    }
+//    public static ArrayList favoriteSort(ArrayList myList){
+//        Collections.sort(myList, new Comparator<Dish>() {
+//            @Override
+//            public int compare(Dish dish1, Dish dish2)
+//            {
+//
+//                return  dish1.isFavorite() - dish2.isFavorite();
+//            }
+//        });
+//
+//
+//        return myList;
+//    }
 
     /**
      * <p>

@@ -48,7 +48,7 @@ public class Dish {
      *     An integer holding either a 0 or 1 to decide if the dish is a not a favorite or favorite, respectively
      * </p>
      */
-    private int favorite = 0;
+    private boolean favorite = false;
     private String picture;
 
 
@@ -113,7 +113,7 @@ public class Dish {
      * </p>
      * @return The 0 or 1 favorite attribute of the dish
      */
-    public int isFavorite() {
+    public boolean isFavorite() {
         return favorite;
     }
 
@@ -123,7 +123,7 @@ public class Dish {
      * </p>
      */
     public void setFavorite() {
-        this.favorite = 1;
+        this.favorite = true;
     }
 
     /**
@@ -132,7 +132,7 @@ public class Dish {
      * </p>
      */
     public void unFavorite() {
-        this.favorite = 0;
+        this.favorite = true;
     }
 
     public long getId() {
