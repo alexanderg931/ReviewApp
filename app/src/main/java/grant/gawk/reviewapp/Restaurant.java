@@ -1,4 +1,15 @@
 package grant.gawk.reviewapp;
+
+/**
+ * <p>
+ *     The Restaurant object which holds the information about restaurant name and location.
+ * </p>
+ * @author Khoa
+ * @version 1.0
+ * @since 1.0
+ * @see AddRestaurantActivity
+ */
+
 public class Restaurant
 {
     private long _id;
