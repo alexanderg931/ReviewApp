@@ -14,34 +14,32 @@
         android:text="Dish:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="53dp"
         android:id="@+id/dishNameLabel"
         android:inputType="none"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/dateEntry"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:text="Rating:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="none"
-        android:layout_below="@+id/dishNameLabel"
-        android:layout_alignLeft="@+id/dishNameLabel"
-        android:layout_alignStart="@+id/dishNameLabel"
-        android:layout_marginTop="41dp"
-        android:id="@+id/ratingLabel" />
+        android:layout_marginTop="14dp"
+        android:id="@+id/ratingLabel"
+        android:layout_alignTop="@+id/dishRatingBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dishRatingBar"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/dishNameEntry"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignLeft="@+id/dishNameEntry"
+        android:layout_alignStart="@+id/dishNameEntry" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -49,12 +47,11 @@
         android:inputType="textPersonName"
         android:hint="Enter a dish name"
         android:ems="10"
-        android:textSize="28px"
         android:id="@+id/dishNameEntry"
         android:layout_alignBaseline="@+id/dishNameLabel"
         android:layout_alignBottom="@+id/dishNameLabel"
-        android:layout_alignLeft="@+id/dishRatingBar"
-        android:layout_alignStart="@+id/dishRatingBar"
+        android:layout_alignLeft="@+id/dateEntry"
+        android:layout_alignStart="@+id/dateEntry"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -62,35 +59,36 @@
         android:text="Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/commentTextBox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
         android:id="@+id/submitButton"
-        android:onClick="collectData"/>
+        android:onClick="collectData"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:text="Date:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/dishNameLabel"
-        android:layout_alignStart="@+id/dishNameLabel"
-        android:layout_marginTop="11dp"
         android:inputType="none"
-        android:id="@+id/dateLabel" />
+        android:id="@+id/dateLabel"
+        android:layout_alignBaseline="@+id/dateEntry"
+        android:layout_alignBottom="@+id/dateEntry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Enter Date"
-        android:textSize="28px"
         android:ems="10"
         android:id="@+id/dateEntry"
-        android:layout_alignBaseline="@+id/dateLabel"
-        android:layout_alignBottom="@+id/dateLabel"
-        android:layout_alignLeft="@+id/dishNameEntry"
-        android:layout_alignStart="@+id/dishNameEntry"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ratingLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -100,10 +98,10 @@
         android:layout_height="wrap_content"
         android:inputType="none"
         android:id="@+id/commentsLabel"
+        android:layout_marginTop="18dp"
         android:layout_below="@+id/dishRatingBar"
         android:layout_alignLeft="@+id/ratingLabel"
-        android:layout_alignStart="@+id/ratingLabel"
-        android:layout_marginTop="18dp" />
+        android:layout_alignStart="@+id/ratingLabel" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -111,13 +109,12 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:lines="10"
-        android:textSize="28px"
         android:hint="Enter your comments about the dish."
         android:id="@+id/commentTextBox"
-        android:layout_alignTop="@+id/commentsLabel"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/dishRatingBar"
-        android:layout_alignStart="@+id/dishRatingBar" />
+        android:layout_alignStart="@+id/dishRatingBar"
+        android:layout_alignTop="@+id/commentsLabel" />
 
 </RelativeLayout>
