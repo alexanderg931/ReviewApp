@@ -6,6 +6,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,6 +63,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     protected void onResume(){
         dao.open();
         super.onResume();
+        populateList();
     }
 
     @Override
@@ -69,22 +73,22 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
 
-//    //onClick function for settings menu
-//    public void openSettings(MenuItem item) {
-//        getFragmentManager().beginTransaction().replace(android.R.id.content,
-//                new SettingsFragment()).addToBackStack(null).commit();
-//    }
-//
-//
-//
-//    //Overrides functionality to create overflow menu on toolbar
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.toolbar, menu);
-//
-//        return true;
-//    }
+    //onClick function for settings menu
+    public void openSettings(MenuItem item) {
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new SettingsFragment()).addToBackStack(null).commit();
+    }
+
+
+
+    //Overrides functionality to create overflow menu on toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, menu);
+
+        return true;
+    }
 
 
     /**
@@ -99,7 +103,7 @@ public class RestaurantListActivity extends AppCompatActivity {
      */
     private void populateList(){
         //get list of restaurants from Database and adapt them to list view
-        final List<Restaurant> restaurants = dao.getAllRestaurants();
+        final List<Restaurant> restaurants = dao.getAllRestaurants(appContext);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, restaurants);
         restaurantList.setAdapter(adapter);
 

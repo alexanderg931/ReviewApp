@@ -81,11 +81,13 @@ class DataAccessObject {
     }
 
     //Return a list of all Restaurants
-    List<Restaurant> getAllRestaurants(){
+    List<Restaurant> getAllRestaurants(Context context){
         List<Restaurant> restaurants = new ArrayList<>();
+        String orderBy = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_restaurant_name", "");;
 
         //create a cursor pointing to the Restaurant Table
-        Cursor cursor = db.query(DBHelper.TABLE_RESTAURANT, restaurantColumns, null, null, null, null, null);
+        Cursor cursor = db.query(DBHelper.TABLE_RESTAURANT, restaurantColumns, null, null, null, null, orderBy);
 
         //Iterates through the table and adds each restaurant to a list
         Log.d(TAG, cursor.getPosition() + "");
@@ -143,13 +145,13 @@ class DataAccessObject {
         String orderBy;
 
         orderBy = PreferenceManager.getDefaultSharedPreferences(context)
-                .getString("pref_dish_name", "");
+                .getString("pref_dish_favorite", "");
+        orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("pref_dish_rating", ""));
         orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
                 .getString("pref_dish_date", ""));
         orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
-                .getString("pref_dish_favorite", ""));
-        orderBy = orderBy.concat(PreferenceManager.getDefaultSharedPreferences(context)
-                .getString("pref_dish_rating", ""));
+                .getString("pref_dish_name", ""));
 
         if (orderBy.length() < 5){
             orderBy = "restaurant_id desc";

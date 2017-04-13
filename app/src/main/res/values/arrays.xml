@@ -5,14 +5,24 @@
         <item>Descending</item>
         <item>Disable</item></string-array>
 
+    <string-array name="pref_high_to_low">
+        <item>High to Low</item>
+        <item>Low to High</item>
+        <item>Disable</item></string-array>
+
+    <string-array name="pref_favorite_entries">
+        <item>Favorites First</item>
+        <item>Favorites Last</item>
+        <item>Disable</item></string-array>
+
     <string-array name="pref_restaurant_name_values">
         <item>name asc</item>
         <item>name desc</item>
         <item> </item></string-array>
 
     <string-array name="pref_dish_name_values">
-        <item>name asc,</item>
-        <item>name desc,</item>
+        <item>name asc</item>
+        <item>name desc</item>
         <item> </item></string-array>
 
     <string-array name="pref_dish_date_values">
@@ -26,8 +36,8 @@
         <item> </item></string-array>
 
     <string-array name="pref_dish_rating_values">
-        <item>rating asc</item>
-        <item>rating desc</item>
+        <item>rating desc,</item>
+        <item>rating asc,</item>
         <item> </item></string-array>
 
 </resources>
