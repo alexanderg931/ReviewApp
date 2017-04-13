@@ -44,6 +44,7 @@ public class DishListActivity extends AppCompatActivity{
     ArrayAdapter<Dish> adapter;
     Context appContext;
     DataAccessObject dao;
+    private boolean isVisible;
 
 
     /**
@@ -66,6 +67,7 @@ public class DishListActivity extends AppCompatActivity{
         appContext = getApplicationContext();
         dao = new DataAccessObject(appContext);
         dao.open();
+        isVisible = true;
 
         //Sets Restaurant's name to toolbar title
         Intent intent = getIntent();
@@ -88,6 +90,7 @@ public class DishListActivity extends AppCompatActivity{
      */
     @Override
     protected void onResume() {
+        isVisible = true;
         super.onResume();
         Log.d(TAG, "Resuming Dish list");
         dao.open();
@@ -96,6 +99,7 @@ public class DishListActivity extends AppCompatActivity{
 
     @Override
     protected void onPause(){
+        isVisible = false;
         dao.close();
         super.onPause();
     }
@@ -188,6 +192,7 @@ public class DishListActivity extends AppCompatActivity{
      * @param item The MenuItem object passed by the calling function
      */
     public void openSettings(MenuItem item) {
+        isVisible = false;
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
 
@@ -195,7 +200,7 @@ public class DishListActivity extends AppCompatActivity{
 
 
 
-    //called to move to Restaurant Data form.
+    //called to move to Dish Data form.
     private void showDishForm(Dish dish){
 
         Intent intent = new Intent(this, ShowDishActivity.class);
@@ -218,13 +223,23 @@ public class DishListActivity extends AppCompatActivity{
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         intent.putExtra("restaurantId", restaurantId);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
-    @Override
-    public void onPanelClosed(int featureId, Menu menu) {
-        super.onPanelClosed(featureId, menu);
-        Log.d(TAG, "im getting called");
+//    @Override
+//    public void onPanelClosed(int featureId, Menu menu) {
+//        super.onPanelClosed(featureId, menu);
+//        Log.d(TAG, "im getting called");
+//    }
 
+    @Override
+    public void onBackPressed() {
+        if (!isVisible) {
+            super.onBackPressed();
+        } else {
+            Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
+            startActivity(returnToRestaurantList);
+        }
     }
 }
