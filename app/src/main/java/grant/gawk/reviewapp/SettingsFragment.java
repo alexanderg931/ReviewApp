@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,9 +32,15 @@ public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         addPreferencesFromResource(R.xml.preferences);
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_settings);
+        item.setVisible(false);
+    }
     /**
      * <p>
      *     Sets the background color to gray, and catches NullPointerException.
@@ -65,5 +74,7 @@ public class SettingsFragment extends PreferenceFragment {
         //repopulates list by calling onResume method during recreate
         getActivity().recreate();
     }
+
+
 
 }

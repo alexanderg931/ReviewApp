@@ -38,6 +38,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     Context appContext;
     private static final String TAG = "Restaurant List";
     private DataAccessObject dao;
+    private boolean isVisible;
 
     /**
      * <p>
@@ -56,6 +57,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         dao = new DataAccessObject(appContext);
         dao.open();
         populateList();
+        isVisible = true;
 
     }
 
@@ -64,17 +66,20 @@ public class RestaurantListActivity extends AppCompatActivity {
         dao.open();
         super.onResume();
         populateList();
+        isVisible = true;
     }
 
     @Override
     protected void onPause(){
         dao.close();
+        isVisible = false;
         super.onPause();
     }
 
 
     //onClick function for settings menu
     public void openSettings(MenuItem item) {
+        isVisible = false;
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SettingsFragment()).addToBackStack(null).commit();
     }
@@ -172,10 +177,26 @@ public class RestaurantListActivity extends AppCompatActivity {
      */
     public void addRestaurant(View view){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
 
     }
 
-
+    //Override restaurant list to always close when back is pressed
+    //fixes issue after adding several restaurants where you would have
+    //to press back multiple times
+    @Override
+    public void onBackPressed(){
+        Log.d(TAG, String.valueOf(isVisible));
+        if (!isVisible){
+            super.onBackPressed();
+        }
+        else {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
 
 }
