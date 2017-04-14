@@ -3,18 +3,12 @@ package grant.gawk.reviewapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.support.v4.content.FileProvider;
-import android.content.Context;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * <p>
@@ -44,10 +38,8 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
      *
      * </p>
      */
-    ImageView imageView;
     Context appContext;
     DataAccessObject dao;
-    Uri pictureURI;
     /**
      * <p>
      *     The EditText where the user entered the restaurant name.
@@ -76,7 +68,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         setContentView(R.layout.activity_add_restaurant);
         setTitle("Add a Restaurant");
         appContext = this.getApplicationContext();
-        imageView = (ImageView) findViewById(R.id.imageView);
         cityName = (EditText) findViewById(R.id.cityName);
         restName = (EditText) findViewById(R.id.restName);
         dao = new DataAccessObject(appContext);
@@ -86,7 +77,6 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     @Override
     protected void onResume(){
         dao.open();
-        imageView.setImageURI(pictureURI);
         super.onResume();
     }
 
@@ -114,20 +104,12 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     public void onClick(View v)
     {
         switch (v.getId()) {
-            case R.id.takePicture:
-                PictureHandler hans = new PictureHandler(appContext, restName.getText().toString());
-                pictureURI = hans.getPictureURI();
-                Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                openCamera.putExtra(MediaStore.EXTRA_OUTPUT, pictureURI);
-                startActivityForResult(openCamera, 1);
-                break;
 
             case R.id.btnSubmit:
                 String city = cityName.getText().toString();
                 String restaurant = restName.getText().toString();
-                String picturePath = pictureURI.toString(); //Temporary until we figure out how to store images
 
-                dao.insertRestaurant(picturePath, restaurant, city);
+                dao.insertRestaurant(null, restaurant, city);
 
                 Intent returnToRestaurantList = new Intent(this, RestaurantListActivity.class);
                 startActivity(returnToRestaurantList);

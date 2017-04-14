@@ -91,7 +91,7 @@
         android:layout_alignStart="@+id/ratingLabelDisplay" />
 
     <Button
-        android:text="Resubmit Changes"
+        android:text="Submit Changes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

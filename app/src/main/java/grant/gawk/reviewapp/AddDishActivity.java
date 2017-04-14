@@ -142,9 +142,12 @@ public class AddDishActivity extends AppCompatActivity {
         String date = dateWidget.getText().toString();
         float dishRating = dishRatingWidget.getRating();
 
-        System.out.println(pictureUri.toString());
-        dao.insertDish(restaurantId, dishName, date, comments, dishRating, pictureUri.toString());
-
+        if(pictureUri == null) {
+            dao.insertDish(restaurantId, dishName, date, comments, dishRating, null);
+        }
+        else {
+            dao.insertDish(restaurantId, dishName, date, comments, dishRating, pictureUri.toString());
+        }
         Intent intent = new Intent(this, DishListActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         intent.putExtra("restaurantId", restaurantId);

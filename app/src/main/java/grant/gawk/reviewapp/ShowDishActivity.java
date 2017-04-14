@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.ImageView;
 import android.net.Uri;
 import android.widget.TextView;
+import android.view.View;
 
 /**
  * <p>
@@ -85,7 +86,14 @@ public class ShowDishActivity extends AppCompatActivity {
         nameWidget.setText(nameToUse);
         commentsWidget.setText(commentsToUse);
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
-        imageViewWidget.setImageURI(Uri.parse(picture));
+
+        if(picture != null){
+            imageViewWidget.setImageURI(Uri.parse(picture));
+        }
+    }
+
+    public void resubmit(View view){
+
     }
 
 

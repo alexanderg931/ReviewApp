@@ -106,7 +106,7 @@ class DataAccessObject {
         Log.d(TAG, cursor.getString(0));
         Log.d(TAG, cursor.getString(1));
         Log.d(TAG, cursor.getString(2));
-        Log.d(TAG, cursor.getString(3));
+//        Log.d(TAG, cursor.getString(3));
         return new Restaurant(cursor.getLong(0), cursor.getString(3), cursor.getString(1), cursor.getString(2));
     }
 
