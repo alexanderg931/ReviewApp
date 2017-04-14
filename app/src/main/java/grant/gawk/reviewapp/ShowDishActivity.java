@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.ImageView;
+import android.net.Uri;
+import android.widget.TextView;
 
 /**
  * <p>
@@ -23,7 +26,7 @@ public class ShowDishActivity extends AppCompatActivity {
      *     The UI piece where the date the dish was submitted is displayed.
      * </p>
      */
-    EditText dateWidget;
+    TextView dateWidget;
 
     /**
      * <p>
@@ -46,6 +49,8 @@ public class ShowDishActivity extends AppCompatActivity {
      */
     RatingBar ratingWidget;
 
+    ImageView imageViewWidget;
+
     /**
      * <p>
      *     Grabs the dish attributes from the intent's extras, as well as
@@ -63,21 +68,24 @@ public class ShowDishActivity extends AppCompatActivity {
         Log.d("showDish", intent.getStringExtra("dishName"));
         setTitle(intent.getStringExtra("dishName"));
 
-        dateWidget = (EditText) findViewById(R.id.dateEntryDisplay);
+        dateWidget = (TextView) findViewById(R.id.dateEntryDisplay);
         nameWidget = (EditText) findViewById(R.id.dishNameDisplay);
         commentsWidget = (EditText) findViewById(R.id.commentTextBoxDisplay);
         ratingWidget = (RatingBar) findViewById(R.id.dishRatingBarDisplay);
+        imageViewWidget = (ImageView) findViewById(R.id.imageViewDisplay);
 
 
         String dateToUse = intent.getStringExtra("dishDate");
         String nameToUse = intent.getStringExtra("dishName");
         String commentsToUse = intent.getStringExtra("dishComments");
         String ratingToUse = intent.getStringExtra("dishRating");
-
+        String picture = intent.getStringExtra("dishPicture");
+        System.out.println("Here: " + picture);
         dateWidget.setText(dateToUse);
         nameWidget.setText(nameToUse);
         commentsWidget.setText(commentsToUse);
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
+        imageViewWidget.setImageURI(Uri.parse(picture));
     }
 
 

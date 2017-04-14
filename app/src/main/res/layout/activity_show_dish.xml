@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_dish_form"
     android:layout_width="match_parent"
@@ -66,7 +67,7 @@
         android:layout_alignStart="@+id/dishNameLabelDisplay"
         android:layout_marginTop="12dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="none"
@@ -79,21 +80,6 @@
         android:layout_alignLeft="@+id/dishNameDisplay"
         android:layout_alignStart="@+id/dishNameDisplay" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:ems="10"
-        android:lines="10"
-        android:text=""
-        android:id="@+id/commentTextBoxDisplay"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/dishRatingBarDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/dishRatingBarDisplay"
-        android:layout_alignStart="@+id/dishRatingBarDisplay" />
-
     <TextView
         android:text="Comments:"
         android:layout_width="wrap_content"
@@ -103,5 +89,53 @@
         android:layout_alignTop="@+id/commentTextBoxDisplay"
         android:layout_alignLeft="@+id/ratingLabelDisplay"
         android:layout_alignStart="@+id/ratingLabelDisplay" />
+
+    <Button
+        android:text="Resubmit Changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnResubmit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:color/transparent"
+        android:id="@+id/imageViewDisplay"
+        android:layout_below="@+id/commentTextBoxDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/btnResubmit"
+        android:layout_alignLeft="@+id/commentTextBoxDisplay"
+        android:layout_alignStart="@+id/commentTextBoxDisplay" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:lines="10"
+        android:text=""
+        android:id="@+id/commentTextBoxDisplay"
+        android:maxLines="4"
+        android:minLines="4"
+        android:layout_below="@+id/dishRatingBarDisplay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/dishRatingBarDisplay"
+        android:layout_alignStart="@+id/dishRatingBarDisplay" />
+
+    <TextView
+        android:text="Picture:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pictureDisplayLabel"
+        android:layout_alignTop="@+id/imageViewDisplay"
+        android:layout_alignLeft="@+id/commentsLabelDisplay"
+        android:layout_alignStart="@+id/commentsLabelDisplay" />
 
 </RelativeLayout>

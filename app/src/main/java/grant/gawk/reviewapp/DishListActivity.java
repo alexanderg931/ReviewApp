@@ -208,6 +208,7 @@ public class DishListActivity extends AppCompatActivity{
         intent.putExtra("dishDate", dish.getDate());
         intent.putExtra("dishComments", dish.getComments());
         intent.putExtra("dishRating", Float.toString(dish.getRating()));
+        intent.putExtra("dishPicture", dish.getPicture());
         startActivity(intent);
 
     }
@@ -223,7 +224,7 @@ public class DishListActivity extends AppCompatActivity{
         Intent intent = new Intent(this, AddDishActivity.class);
         intent.putExtra("restaurantName", restaurantName);
         intent.putExtra("restaurantId", restaurantId);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 

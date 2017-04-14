@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_restaurant"
     android:layout_width="match_parent"
@@ -74,21 +75,21 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Upload Picture"
+        android:text="Take Picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/getImage"
+        android:layout_above="@+id/btnSubmit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/takePicture" />
+        android:layout_marginBottom="22dp"
+        android:id="@+id/takePicture"
+        android:onClick="onClick" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/getImage"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:color/background_light"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="false" />
+        android:id="@+id/imageView" />
 
 </RelativeLayout>

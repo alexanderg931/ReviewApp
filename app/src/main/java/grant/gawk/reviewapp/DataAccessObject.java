@@ -167,6 +167,7 @@ class DataAccessObject {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Dish dish = cursorToDish(cursor);
+            dish.setPicture(cursor.getString(1));
             dishes.add(dish);
             cursor.moveToNext();
         }

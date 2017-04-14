@@ -11,13 +11,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.view.View.OnClickListener;
-import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
+import android.support.v4.content.FileProvider;
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * <p>
@@ -44,18 +41,13 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     /**
      * <p>
      *     The current application context.
+     *
      * </p>
      */
+    ImageView imageView;
     Context appContext;
-
-    /**
-     * <p>
-     *     The ImageView UI object
-     * </p>
-     */
-    ImageView getImage;
     DataAccessObject dao;
-
+    Uri pictureURI;
     /**
      * <p>
      *     The EditText where the user entered the restaurant name.
@@ -84,6 +76,7 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         setContentView(R.layout.activity_add_restaurant);
         setTitle("Add a Restaurant");
         appContext = this.getApplicationContext();
+        imageView = (ImageView) findViewById(R.id.imageView);
         cityName = (EditText) findViewById(R.id.cityName);
         restName = (EditText) findViewById(R.id.restName);
         dao = new DataAccessObject(appContext);
@@ -93,6 +86,7 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     @Override
     protected void onResume(){
         dao.open();
+        imageView.setImageURI(pictureURI);
         super.onResume();
     }
 
@@ -121,13 +115,17 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
     {
         switch (v.getId()) {
             case R.id.takePicture:
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); //Allow the gallery to be opened
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                PictureHandler hans = new PictureHandler(appContext, restName.getText().toString());
+                pictureURI = hans.getPictureURI();
+                Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                openCamera.putExtra(MediaStore.EXTRA_OUTPUT, pictureURI);
+                startActivityForResult(openCamera, 1);
                 break;
+
             case R.id.btnSubmit:
                 String city = cityName.getText().toString();
                 String restaurant = restName.getText().toString();
-                String picturePath = "No Picture"; //Temporary until we figure out how to store images
+                String picturePath = pictureURI.toString(); //Temporary until we figure out how to store images
 
                 dao.insertRestaurant(picturePath, restaurant, city);
 
@@ -137,29 +135,5 @@ public class AddRestaurantActivity extends AppCompatActivity implements OnClickL
         }
 
     }
-
-    /**
-     * <p>
-     *     The method that processes the picture URI obtained from the gallery
-     *     <br />
-     *     <br />
-     *     <b>Note:</b> Currently gives null exceptions when the URI is obtained from the gallery. Will crash program on return.
-     * </p>
-     * @param requestCode   Integer to show if the image loaded
-     * @param resultCode    Integer to show if the result is ok
-     * @param data          The URI of the image
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data.getData() != null) //make sure to receive result from gallery
-        {
-            Uri selectedImage = data.getData(); //Get the uri, allows to prefer back to the image
-            System.out.println(selectedImage.getPath());
-            getImage.setImageURI(selectedImage); //display the image
-        }
-    }
-
 }
 

@@ -34,6 +34,13 @@
         <activity android:name=".ShowDishActivity" />
         <activity android:name=".AddRestaurantActivity" />
         <activity android:name=".DishListActivity"/>
+        <provider android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.android.app.grant.gawk.reviewapp.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 
 </manifest>

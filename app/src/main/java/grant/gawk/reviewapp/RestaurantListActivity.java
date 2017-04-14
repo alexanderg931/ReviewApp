@@ -177,11 +177,11 @@ public class RestaurantListActivity extends AppCompatActivity {
      */
     public void addRestaurant(View view){
         Intent intent = new Intent(this, AddRestaurantActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
 
     }
-
+    /*
     //Override restaurant list to always close when back is pressed
     //fixes issue after adding several restaurants where you would have
     //to press back multiple times
@@ -198,5 +198,6 @@ public class RestaurantListActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    */
 
 }

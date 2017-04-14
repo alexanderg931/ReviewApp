@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_dish_display"
     android:layout_width="match_parent"
@@ -36,24 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dishRatingBar"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/dishNameEntry"
-        android:layout_alignLeft="@+id/dishNameEntry"
-        android:layout_alignStart="@+id/dishNameEntry" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Enter a dish name"
-        android:ems="10"
-        android:id="@+id/dishNameEntry"
-        android:layout_alignBaseline="@+id/dishNameLabel"
-        android:layout_alignBottom="@+id/dishNameLabel"
-        android:layout_alignLeft="@+id/dateEntry"
-        android:layout_alignStart="@+id/dateEntry"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:minHeight="24dp"
+        android:layout_toRightOf="@+id/commentsLabel"
+        android:numStars="5" />
 
     <Button
         android:text="Submit"
@@ -78,19 +66,56 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Enter Date"
         android:ems="10"
         android:id="@+id/dateEntry"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ratingLabel"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/dishNameEntry"
+        android:layout_alignStart="@+id/dishNameEntry" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:color/transparent"
+        android:id="@+id/imageView2"
+        android:layout_alignLeft="@+id/dishRatingBar"
+        android:layout_alignStart="@+id/dishRatingBar"
+        android:background="@android:drawable/screen_background_light_transparent"
+        tools:background="@android:color/transparent"
+        android:layout_toStartOf="@+id/takePictureDish"
+        android:layout_below="@+id/commentTextBox"
+        android:layout_alignBottom="@+id/takePictureDish" />
+
+    <TextView
+        android:text="Picture:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pictureLabel"
+        android:editable="false"
+        android:layout_alignTop="@+id/takePictureDish"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="4"
+        android:hint="Enter your comments about the dish."
+        android:id="@+id/commentTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:layout_below="@+id/dishRatingBar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/commentsLabel"
+        android:layout_toEndOf="@+id/commentsLabel" />
 
     <TextView
         android:text="Comments:"
@@ -98,23 +123,34 @@
         android:layout_height="wrap_content"
         android:inputType="none"
         android:id="@+id/commentsLabel"
-        android:layout_marginTop="18dp"
         android:layout_below="@+id/dishRatingBar"
-        android:layout_alignLeft="@+id/ratingLabel"
-        android:layout_alignStart="@+id/ratingLabel" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="textPersonName"
+        android:hint="Enter a dish name"
         android:ems="10"
-        android:lines="10"
-        android:hint="Enter your comments about the dish."
-        android:id="@+id/commentTextBox"
+        android:id="@+id/dishNameEntry"
+        android:layout_below="@+id/dateEntry"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/dishRatingBar"
         android:layout_alignStart="@+id/dishRatingBar"
-        android:layout_alignTop="@+id/commentsLabel" />
+        android:textSize="14sp" />
+
+    <Button
+        android:text="Take Picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/takePictureDish"
+        android:onClick="takePicture"
+        android:layout_above="@+id/submitButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="121dp"
+        android:layout_below="@+id/commentTextBox" />
 
 </RelativeLayout>
