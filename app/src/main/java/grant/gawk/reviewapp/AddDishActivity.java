@@ -13,6 +13,8 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * <p>
@@ -111,6 +113,8 @@ public class AddDishActivity extends AppCompatActivity {
         super.onResume();
         dao.open();
         imageViewWidget.setImageURI(pictureUri);
+        imageViewWidget.setMaxHeight(100);
+        imageViewWidget.setMaxWidth(100);
     }
 
     @Override

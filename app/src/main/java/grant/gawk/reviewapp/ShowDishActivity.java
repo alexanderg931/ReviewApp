@@ -87,13 +87,19 @@ public class ShowDishActivity extends AppCompatActivity {
         commentsWidget.setText(commentsToUse);
         ratingWidget.setRating(Float.parseFloat(ratingToUse));
 
+        //Checks if the picture is not null, if not, puts the picture into the imageView
+        //if it is null, hides picture label
         if(picture != null){
             imageViewWidget.setImageURI(Uri.parse(picture));
+        }
+        else {
+            TextView PictureLabel = (TextView) findViewById(R.id.pictureDisplayLabel);
+            PictureLabel.setVisibility(View.INVISIBLE);
         }
     }
 
     public void resubmit(View view){
-
+        //need code here to delete previous entry from DAO. Can't figure out a way without somehow stealing its cursor object.
     }
 
 

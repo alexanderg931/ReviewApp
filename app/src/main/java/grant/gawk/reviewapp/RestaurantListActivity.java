@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Context;
+import android.Manifest.permission;
 import java.util.List;
 
 /**
@@ -59,8 +61,32 @@ public class RestaurantListActivity extends AppCompatActivity {
         populateList();
         isVisible = true;
 
+        checkAndAskForPermissions();
     }
 
+    /**
+     * <p>
+     *     Checks to see if the API is at least version 23. If so, checks to see if we have permissions we need, and if not, requests them.
+     * </p>
+     */
+    private void checkAndAskForPermissions()
+    {
+        //checks if the API is greater than or equal to version 23, which adds the requestPermissions feature
+        //APIs lower than this ask on install, and this feature doesn't exist.
+        if(android.os.Build.VERSION.SDK_INT >= 23)
+        {
+            String[] perms = new String[3];
+            perms[0] = permission.CAMERA;
+            perms[1] = permission.WRITE_EXTERNAL_STORAGE;
+            perms[2] = permission.READ_EXTERNAL_STORAGE;
+            //if any of these permissions are not present
+            if((ContextCompat.checkSelfPermission(appContext, perms[0]) == -1) || (ContextCompat.checkSelfPermission(appContext, perms[1]) == -1) || (ContextCompat.checkSelfPermission(appContext, perms[2]) == -1))
+            {
+                //makes dialog box asking for the permissions listed in the array
+                requestPermissions(perms, 1);
+            }
+        }
+    }
     @Override
     protected void onResume(){
         dao.open();
