@@ -14,9 +14,7 @@
         android:text="Name:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="52dp"
         android:id="@+id/dishNameLabelDisplay"
         android:inputType="none"
         android:layout_alignParentTop="true"
@@ -38,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dishRatingBarDisplay"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@+id/dishNameDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/commentsLabelDisplay"
+        android:layout_toEndOf="@+id/commentsLabelDisplay" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,20 +50,20 @@
         android:id="@+id/dishNameDisplay"
         android:layout_alignBaseline="@+id/dishNameLabelDisplay"
         android:layout_alignBottom="@+id/dishNameLabelDisplay"
-        android:layout_alignLeft="@+id/dishRatingBarDisplay"
-        android:layout_alignStart="@+id/dishRatingBarDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignLeft="@+id/dateEntryDisplay"
+        android:layout_alignStart="@+id/dateEntryDisplay"
+        android:layout_alignRight="@+id/dateEntryDisplay"
+        android:layout_alignEnd="@+id/dateEntryDisplay" />
 
     <TextView
         android:text="Date:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dateLabelDisplay"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/dishNameLabelDisplay"
-        android:layout_alignStart="@+id/dishNameLabelDisplay"
-        android:layout_marginTop="12dp" />
+        android:layout_above="@+id/dishNameDisplay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,10 +73,9 @@
         android:id="@+id/dateEntryDisplay"
         android:layout_alignBaseline="@+id/dateLabelDisplay"
         android:layout_alignBottom="@+id/dateLabelDisplay"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/dishNameDisplay"
-        android:layout_alignStart="@+id/dishNameDisplay" />
+        android:layout_toRightOf="@+id/commentsLabelDisplay"
+        android:layout_alignRight="@+id/dishRatingBarDisplay"
+        android:layout_alignEnd="@+id/dishRatingBarDisplay" />
 
     <TextView
         android:text="Comments:"

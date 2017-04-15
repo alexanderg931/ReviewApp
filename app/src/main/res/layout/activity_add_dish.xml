@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/dishNameLabel"
         android:inputType="none"
-        android:layout_below="@+id/dateEntry"
+        android:layout_alignBaseline="@+id/dishNameEntry"
+        android:layout_alignBottom="@+id/dishNameEntry"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="Rating:"
@@ -73,23 +73,22 @@
         android:ems="10"
         android:id="@+id/dateEntry"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/dishNameEntry"
-        android:layout_alignStart="@+id/dishNameEntry" />
+        android:layout_alignStart="@+id/dishNameEntry"
+        android:layout_alignRight="@+id/dishNameEntry"
+        android:layout_alignEnd="@+id/dishNameEntry" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@android:color/transparent"
         android:id="@+id/imageView2"
-        android:layout_alignLeft="@+id/dishRatingBar"
-        android:layout_alignStart="@+id/dishRatingBar"
         android:background="@android:drawable/screen_background_light_transparent"
         tools:background="@android:color/transparent"
-        android:layout_toStartOf="@+id/takePictureDish"
+        android:layout_above="@+id/takePictureDish"
         android:layout_below="@+id/commentTextBox"
-        android:layout_alignBottom="@+id/takePictureDish" />
+        android:layout_alignLeft="@+id/commentTextBox"
+        android:layout_alignStart="@+id/commentTextBox" />
 
     <TextView
         android:text="Picture:"
@@ -97,10 +96,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/pictureLabel"
         android:editable="false"
-        android:layout_alignTop="@+id/takePictureDish"
-        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_above="@+id/takePictureDish"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="103dp" />
 
     <EditText
         android:inputType="textMultiLine"
@@ -112,10 +111,8 @@
         android:layout_height="wrap_content"
         android:maxLines="4"
         android:layout_below="@+id/dishRatingBar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/commentsLabel"
-        android:layout_toEndOf="@+id/commentsLabel" />
+        android:layout_above="@+id/pictureLabel" />
 
     <TextView
         android:text="Comments:"
@@ -123,6 +120,7 @@
         android:layout_height="wrap_content"
         android:inputType="none"
         android:id="@+id/commentsLabel"
+        android:layout_marginTop="13dp"
         android:layout_below="@+id/dishRatingBar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -135,11 +133,10 @@
         android:ems="10"
         android:id="@+id/dishNameEntry"
         android:layout_below="@+id/dateEntry"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/dishRatingBar"
         android:layout_alignStart="@+id/dishRatingBar"
-        android:textSize="14sp" />
+        android:layout_alignRight="@+id/dishRatingBar"
+        android:layout_alignEnd="@+id/dishRatingBar" />
 
     <Button
         android:text="Take Picture"
@@ -148,9 +145,6 @@
         android:id="@+id/takePictureDish"
         android:onClick="takePicture"
         android:layout_above="@+id/submitButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="121dp"
-        android:layout_below="@+id/commentTextBox" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
