@@ -91,6 +91,7 @@ public class ShowDishActivity extends AppCompatActivity {
         //if it is null, hides picture label
         if(picture != null){
             imageViewWidget.setImageURI(Uri.parse(picture));
+            imageViewWidget.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         else {
             TextView PictureLabel = (TextView) findViewById(R.id.pictureDisplayLabel);

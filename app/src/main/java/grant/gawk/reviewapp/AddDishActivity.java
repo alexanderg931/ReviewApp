@@ -113,8 +113,7 @@ public class AddDishActivity extends AppCompatActivity {
         super.onResume();
         dao.open();
         imageViewWidget.setImageURI(pictureUri);
-        imageViewWidget.setMaxHeight(100);
-        imageViewWidget.setMaxWidth(100);
+        imageViewWidget.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
     @Override
