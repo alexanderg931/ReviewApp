@@ -36,6 +36,7 @@ public class ShowDishActivity extends AppCompatActivity {
      */
     EditText nameWidget;
 
+    PictureHandler hans;
     /**
      * <p>
      *     The UI piece where the comments from the user are displayed.
@@ -74,7 +75,7 @@ public class ShowDishActivity extends AppCompatActivity {
         commentsWidget = (EditText) findViewById(R.id.commentTextBoxDisplay);
         ratingWidget = (RatingBar) findViewById(R.id.dishRatingBarDisplay);
         imageViewWidget = (ImageView) findViewById(R.id.imageViewDisplay);
-
+        hans = new PictureHandler();
 
         String dateToUse = intent.getStringExtra("dishDate");
         String nameToUse = intent.getStringExtra("dishName");
@@ -90,8 +91,9 @@ public class ShowDishActivity extends AppCompatActivity {
         //Checks if the picture is not null, if not, puts the picture into the imageView
         //if it is null, hides picture label
         if(picture != null){
-            imageViewWidget.setImageURI(Uri.parse(picture));
-            imageViewWidget.setScaleType(ImageView.ScaleType.FIT_XY);
+            //imageViewWidget.setImageURI(Uri.parse(picture));
+            //imageViewWidget.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageViewWidget.setImageBitmap(hans.makeBitmapAndResize(picture));
         }
         else {
             TextView PictureLabel = (TextView) findViewById(R.id.pictureDisplayLabel);

@@ -3,6 +3,8 @@ package grant.gawk.reviewapp;
 import android.content.Context;
 import android.support.v4.content.FileProvider;
 import android.net.Uri;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import java.io.File;
 import java.io.IOException;
 
@@ -34,6 +36,10 @@ public class PictureHandler {
         createFileAndPrepareURI(0);
     }
 
+    public PictureHandler()
+    {
+        //Picture handler being used for aux functions. No field initialization.
+    }
     public void setRestaurant(String r)
     {
         restaurant = r;
@@ -116,5 +122,36 @@ public class PictureHandler {
         } catch(SecurityException e) {
             System.err.println(e.toString());
         }
+    }
+
+    public Bitmap makeBitmapAndResize(){
+        Bitmap thePicture = BitmapFactory.decodeFile(image.getAbsolutePath());
+        Bitmap resizedPicture = Bitmap.createScaledBitmap(thePicture, 100, 100, false);
+        return resizedPicture;
+    }
+
+    public Bitmap makeBitmapAndResize(String path) {
+        File img = new File(path);
+        Bitmap thePicture;
+        if (img.exists()) {
+            image = img;
+            thePicture = makeBitmapAndResize();
+        }
+        else {
+            System.err.println("File could not be found!");
+            thePicture = null;
+        }
+        return thePicture;
+    }
+
+    public String getFilePath(){
+        String ret;
+        if (image == null) {
+            ret = null;
+        }
+        else {
+            ret = image.getAbsolutePath();
+        }
+        return ret;
     }
 }
