@@ -125,11 +125,6 @@ public class PictureHandler {
         }
     }
 
-    public void rotateImage(Bitmap image)
-    {
-        ExifInterface exifInterface = null;
-
-    }
 
     public Bitmap makeBitmapAndResize(){
         Bitmap thePicture = BitmapFactory.decodeFile(image.getAbsolutePath());
