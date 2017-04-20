@@ -88,7 +88,9 @@
         android:layout_above="@+id/takePictureDish"
         android:layout_below="@+id/commentTextBox"
         android:layout_alignLeft="@+id/commentTextBox"
-        android:layout_alignStart="@+id/commentTextBox" />
+        android:layout_alignStart="@+id/commentTextBox"
+        android:rotation="90"
+        />
 
     <TextView
         android:text="Picture:"

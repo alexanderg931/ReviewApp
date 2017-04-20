@@ -108,7 +108,8 @@
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/btnResubmit"
         android:layout_alignLeft="@+id/commentTextBoxDisplay"
-        android:layout_alignStart="@+id/commentTextBoxDisplay" />
+        android:layout_alignStart="@+id/commentTextBoxDisplay"
+        android:rotation="90"/>
 
     <EditText
         android:layout_width="wrap_content"

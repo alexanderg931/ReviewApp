@@ -106,6 +106,9 @@ public class AddDishActivity extends AppCompatActivity {
         Date newDate = new Date();
         String date = DateFormat.getDateInstance().format(newDate);
         dateWidget.setText(date);
+
+        //Rotate
+
     }
 
     @Override
@@ -131,6 +134,7 @@ public class AddDishActivity extends AppCompatActivity {
         Uri pictureUri = hans.getPictureURI();
         Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startCamera.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+
         startActivityForResult(startCamera, 1);
     }
     /**

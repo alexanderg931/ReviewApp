@@ -12,6 +12,7 @@
     tools:context="grant.gawk.reviewapp.RestaurantListActivity">
 
 
+
     <ListView
         android:id="@+id/dish_list"
         android:layout_width="match_parent"

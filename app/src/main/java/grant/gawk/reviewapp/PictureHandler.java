@@ -1,6 +1,7 @@
 package grant.gawk.reviewapp;
 
 import android.content.Context;
+import android.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.net.Uri;
 import android.graphics.BitmapFactory;
@@ -124,11 +125,18 @@ public class PictureHandler {
         }
     }
 
+    public void rotateImage(Bitmap image)
+    {
+        ExifInterface exifInterface = null;
+
+    }
+
     public Bitmap makeBitmapAndResize(){
         Bitmap thePicture = BitmapFactory.decodeFile(image.getAbsolutePath());
         Bitmap resizedPicture = Bitmap.createScaledBitmap(thePicture, 100, 100, false);
         return resizedPicture;
     }
+
 
     public Bitmap makeBitmapAndResize(String path) {
         File img = new File(path);
